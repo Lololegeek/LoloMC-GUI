@@ -1,7 +1,7 @@
-import { createElement, type MouseEvent } from 'react';
+import { createElement, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent } from 'react';
 import type { UiElement } from './model';
 
-type Props = { root: UiElement; css: string; selectedId: string | null; onSelect: (id: string | null) => void };
+type Props = { root: UiElement; css: string; selectedId: string | null; zoom: number; onSelect: (id: string | null) => void; onMove: (id: string, left: number, top: number) => void };
 
 const unitProperties = new Set(['width', 'height', 'left', 'top', 'right', 'bottom', 'padding', 'gap', 'font-size', 'border-radius', 'border-width']);
 
@@ -18,32 +18,83 @@ export function normalizeCss(css: string): string {
   );
 }
 
-function NodeView({ node, selectedId, onSelect }: { node: UiElement; selectedId: string | null; onSelect: Props['onSelect'] }) {
+function inlineStyle(styleText: string): CSSProperties {
+  const result: Record<string, string> = {};
+  for (const declaration of styleText.split(';')) {
+    const colon = declaration.indexOf(':');
+    if (colon <= 0) continue;
+    const key = declaration.slice(0, colon).trim();
+    let value = declaration.slice(colon + 1).trim();
+    if (!key || !value) continue;
+    if (unitProperties.has(key) && /^-?\d+(?:\.\d+)?$/.test(value)) value = `${value}px`;
+    const reactKey = key.startsWith('--') ? key : key.replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
+    result[reactKey] = value;
+  }
+  return result as CSSProperties;
+}
+
+function NodeView({ node, selectedId, zoom, onSelect, onMove }: { node: UiElement; selectedId: string | null; zoom: number; onSelect: Props['onSelect']; onMove: Props['onMove'] }) {
   const id = node.attributes.id;
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const drag = useRef<{ startX: number; startY: number; left: number; top: number; moved: boolean } | null>(null);
   const click = (event: MouseEvent) => { event.stopPropagation(); onSelect(id || null); };
+  const pointerDown = (event: PointerEvent<HTMLElement>) => {
+    if (!id || event.button !== 0) return;
+    event.stopPropagation();
+    const element = event.currentTarget;
+    const parent = element.parentElement?.getBoundingClientRect();
+    const rect = element.getBoundingClientRect();
+    if (!parent) return;
+    element.setPointerCapture(event.pointerId);
+    drag.current = { startX: event.clientX, startY: event.clientY, left: (rect.left - parent.left) / zoom, top: (rect.top - parent.top) / zoom, moved: false };
+    setDragOffset({ x: 0, y: 0 });
+    onSelect(id);
+  };
+  const pointerMove = (event: PointerEvent<HTMLElement>) => {
+    const state = drag.current;
+    if (!state) return;
+    const x = (event.clientX - state.startX) / zoom;
+    const y = (event.clientY - state.startY) / zoom;
+    if (Math.abs(x) > 2 || Math.abs(y) > 2) state.moved = true;
+    setDragOffset({ x, y });
+  };
+  const pointerUp = (event: PointerEvent<HTMLElement>) => {
+    const state = drag.current;
+    if (!state) return;
+    if (state.moved && id) onMove(id, Math.round(state.left + dragOffset.x), Math.round(state.top + dragOffset.y));
+    drag.current = null;
+    setDragOffset({ x: 0, y: 0 });
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+  };
   const attributes = { ...node.attributes };
   const className = attributes.class;
   delete attributes.class;
   delete attributes['on-click'];
   delete attributes.src;
+  delete attributes.style;
   const common = {
     ...attributes,
     className,
+    style: { ...inlineStyle(node.attributes.style || ''), ...(drag.current ? { transform: `translate(${dragOffset.x}px, ${dragOffset.y}px)` } : {}) },
     'data-lolo-node': id || node.tag,
     'data-selected': id && id === selectedId ? 'true' : undefined,
+    'data-dragging': drag.current?.moved ? 'true' : undefined,
     onClick: click,
+    onPointerDown: pointerDown,
+    onPointerMove: pointerMove,
+    onPointerUp: pointerUp,
   };
-  const children = <>{node.text}{node.children.map((child, index) => <NodeView key={`${child.attributes.id || child.tag}-${index}`} node={child} selectedId={selectedId} onSelect={onSelect} />)}</>;
+  const children = <>{node.text}{node.children.map((child, index) => <NodeView key={`${child.attributes.id || child.tag}-${index}`} node={child} selectedId={selectedId} zoom={zoom} onSelect={onSelect} onMove={onMove} />)}</>;
   if (node.tag === 'input') return <input {...common} readOnly value={node.attributes.value || ''} />;
   const tag = node.tag === 'button' ? 'button' : `lolo-${node.tag}`;
   return createElement(tag, common, children);
 }
 
-export function Preview({ root, css, selectedId, onSelect }: Props) {
+export function Preview({ root, css, selectedId, zoom, onSelect, onMove }: Props) {
   return (
     <div className="preview-root" onClick={() => onSelect(null)}>
       <style>{`${normalizeCss(css)}\n.preview-root [data-selected="true"] { outline: 1px solid #ffb44c !important; outline-offset: 2px; }`}</style>
-      <NodeView node={root} selectedId={selectedId} onSelect={onSelect} />
+      <NodeView node={root} selectedId={selectedId} zoom={zoom} onSelect={onSelect} onMove={onMove} />
     </div>
   );
 }

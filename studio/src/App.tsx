@@ -78,6 +78,15 @@ export function App() {
     if (value) declarations[name] = value; else delete declarations[name];
     update('style', Object.entries(declarations).map(([key, val]) => `${key}: ${val}`).join('; '));
   };
+  const moveNode = (id: string, left: number, top: number) => {
+    const node = parsed.root ? findNode(parsed.root, id) : null;
+    if (!node) return;
+    const declarations = parseInlineStyle(node.attributes.style || '');
+    declarations.position = 'absolute';
+    declarations.left = `${Math.max(0, left)}px`;
+    declarations.top = `${Math.max(0, top)}px`;
+    commit({ ...project, xml: updateNode(project.xml, id, 'style', Object.entries(declarations).map(([key, val]) => `${key}: ${val}`).join('; ')) }, 'Élément déplacé');
+  };
   const remove = () => {
     if (!selectedId || selectedId === parsed.root?.attributes.id) return;
     commit({ ...project, xml: removeNode(project.xml, selectedId) }, 'Élément supprimé'); setSelectedId(null);
@@ -151,7 +160,7 @@ export function App() {
             <div className="canvas-wrap">
               <div className="canvas-label"><span>{canvasWidth} × {canvasHeight}</span><span>APERÇU INTERACTIF</span></div>
               <div className="game-canvas" style={{ width: canvasWidth, height: canvasHeight, transform: `scale(${zoom})` }}>
-                {parsed.root ? <Preview root={parsed.root} css={project.css} selectedId={selectedId} onSelect={setSelectedId} /> : <div className="xml-error"><Code2 size={28} /><b>Le XML ne peut pas être affiché</b><span>{parsed.error}</span></div>}
+                {parsed.root ? <Preview root={parsed.root} css={project.css} selectedId={selectedId} zoom={zoom} onSelect={setSelectedId} onMove={moveNode} /> : <div className="xml-error"><Code2 size={28} /><b>Le XML ne peut pas être affiché</b><span>{parsed.error}</span></div>}
               </div>
             </div>
           ) : (
@@ -174,6 +183,8 @@ export function App() {
               {selected.tag === 'button' && <Field label="Action" value={selected.attributes['on-click'] || ''} onChange={(value) => update('on-click', value)} />}
             </InspectorGroup>
             <InspectorGroup title="DIMENSIONS">
+              <div className="drag-hint"><MousePointer2 size={13} /><span>Glissez l’élément dans l’aperçu pour le positionner.</span></div>
+              <div className="field-grid"><Field label="Position X" value={inlineValue(selected, 'left')} placeholder="auto" onChange={(v) => updateStyle('left', v)} /><Field label="Position Y" value={inlineValue(selected, 'top')} placeholder="auto" onChange={(v) => updateStyle('top', v)} /></div>
               <div className="field-grid"><Field label="Largeur" value={inlineValue(selected, 'width')} placeholder="auto" onChange={(v) => updateStyle('width', v)} /><Field label="Hauteur" value={inlineValue(selected, 'height')} placeholder="auto" onChange={(v) => updateStyle('height', v)} /></div>
               <div className="field-grid"><Field label="Espacement" value={inlineValue(selected, 'gap')} placeholder="0" onChange={(v) => updateStyle('gap', v)} /><Field label="Marge int." value={inlineValue(selected, 'padding')} placeholder="0" onChange={(v) => updateStyle('padding', v)} /></div>
             </InspectorGroup>

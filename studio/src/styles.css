@@ -60,13 +60,15 @@ button { color: inherit; }
 .canvas-wrap { min-height: 0; flex: 1; position: relative; display: grid; place-items: center; overflow: auto; background-color: #090b0e; background-image: linear-gradient(#11141a 1px, transparent 1px), linear-gradient(90deg,#11141a 1px,transparent 1px); background-size: 20px 20px; }
 .canvas-label { position: absolute; top: 10px; left: 12px; right: 12px; display: flex; justify-content: space-between; color: #454a53; font: 8px 'DM Mono'; letter-spacing: .8px; }
 .game-canvas { flex: 0 0 auto; overflow: hidden; transform-origin: center; background: #0d0f12; border: 1px solid #363a42; box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 6px #11141a; transition: transform .18s ease; }
-.preview-root { display: block; width: 100%; height: 100%; overflow: hidden; }
+.preview-root { display: block; width: 100%; height: 100%; overflow: hidden; user-select: none; }
 :where(.preview-root) > :where(lolo-screen) { width: 100%; height: 100%; overflow: hidden; }
 :where(.preview-root) :where(lolo-screen, lolo-panel, lolo-spacer) { display: flex; flex-direction: column; min-width: 0; flex-shrink: 0; }
 :where(.preview-root) :where(lolo-label, button, lolo-badge, lolo-avatar, input, lolo-image) { display: flex; flex: 0 0 auto; align-items: center; min-width: 0; }
 :where(.preview-root) button { justify-content: center; border: 0; background: transparent; cursor: pointer; font: inherit; }
 :where(.preview-root) input { outline: 0; }
 :where(.preview-root) :where(lolo-badge, lolo-avatar) { justify-content: center; }
+:where(.preview-root) [data-lolo-node] { cursor: grab; }
+:where(.preview-root) [data-dragging="true"] { cursor: grabbing; opacity: .88; }
 .xml-error, .empty-inspector { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; color: #656a73; text-align: center; }
 .xml-error b, .empty-inspector b { color: #a4a7ad; font-size: 11px; }
 .xml-error span, .empty-inspector span { max-width: 330px; font-size: 9px; }
@@ -92,6 +94,8 @@ button { color: inherit; }
 .property-field input:focus { border-color: #6b5432; box-shadow: 0 0 0 2px rgba(233,162,59,.06); }
 .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 0 10px 8px; }
 .field-grid .property-field { min-width: 0; }
+.drag-hint { margin: 0 10px 9px; padding: 8px; display: flex; align-items: flex-start; gap: 6px; color: #b88338; background: #1d1912; border: 1px solid #3a2d1d; border-radius: 4px; font-size: 8px; line-height: 1.4; }
+.drag-hint span { color: #9a815e; }
 .empty-inspector { height: 200px; padding: 20px; }
 
 @media (max-width: 1250px) { .workspace { grid-template-columns: 205px minmax(500px,1fr) 220px; } .app-header { grid-template-columns: 230px 1fr auto; } }
