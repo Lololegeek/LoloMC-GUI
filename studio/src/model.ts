@@ -57,6 +57,7 @@ export function addNode(xml: string, parentId: string | null, tag: string): { xm
     if (tag === 'label') child.textContent = 'Nouveau texte';
     if (tag === 'button') { child.textContent = 'Bouton'; child.setAttribute('on-click', 'action'); }
     if (tag === 'image') child.setAttribute('src', 'minecraft:textures/item/diamond.png');
+    if (tag === 'progress') { child.setAttribute('value', '0.65'); child.setAttribute('max', '1'); }
     parent.appendChild(child);
   });
   return { xml: updated, id };
@@ -95,4 +96,3 @@ export function formatXml(xml: string): string {
     })
     .join('\n');
 }
-

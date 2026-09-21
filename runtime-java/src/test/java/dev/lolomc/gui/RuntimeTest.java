@@ -3,6 +3,7 @@ package dev.lolomc.gui;
 import dev.lolomc.gui.model.UiDocument;
 import dev.lolomc.gui.model.UiNode;
 import dev.lolomc.gui.render.RenderBackend;
+import dev.lolomc.gui.style.StyleValues;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public final class RuntimeTest {
     public static void main(String[] args) {
         parsesStylesLayoutsAndClicks();
         handlesEmptyInlineStyleAndOutOfFlowChildren();
+        centersResponsiveLayoutsAndParsesModernColors();
         rejectsDoctype();
         System.out.println("LoloMC GUI runtime tests passed");
     }
@@ -55,9 +57,28 @@ public final class RuntimeTest {
         assert rejected;
     }
 
+    private static void centersResponsiveLayoutsAndParsesModernColors() {
+        UiDocument document = LoloGui.load("<screen><panel id='card'><progress value='0.5'/></panel></screen>",
+                "screen{justify-content:center;align-items:center;padding:4 8} #card{width:40;height:20;padding:2 6;box-shadow:0 4 12 #00000080} progress{height:4;background:#101820;progress-color:#ff990080}");
+        GuiSession session = LoloGui.session(document);
+        session.resize(100, 80);
+        UiNode card = document.getRoot().findById("card");
+        assert card.getBounds().x == 30 : card.getBounds().x;
+        assert card.getBounds().y == 30 : card.getBounds().y;
+        assert StyleValues.parseColor("#0a0b0cff", 0) == 0xff0a0b0c;
+        assert StyleValues.parseColor("rgba(10, 20, 30, 0.5)", 0) == 0x800a141e;
+        RecordingBackend backend = new RecordingBackend();
+        session.render(backend);
+        assert backend.shadowCalls == 1;
+        assert backend.fillCalls >= 2;
+    }
+
     private static final class RecordingBackend implements RenderBackend {
         final List<String> calls = new ArrayList<String>();
-        public void fill(float x, float y, float w, float h, int color, float radius) { calls.add("fill"); }
+        int fillCalls;
+        int shadowCalls;
+        public void fill(float x, float y, float w, float h, int color, float radius) { calls.add("fill"); fillCalls++; }
+        public void shadow(float x, float y, float w, float h, int color, float blur, float offsetX, float offsetY, float radius) { calls.add("shadow"); shadowCalls++; }
         public void stroke(float x, float y, float w, float h, int color, float thickness, float radius) { calls.add("stroke"); }
         public void text(String text, float x, float y, int color, float size, String align) { calls.add("text:" + text); }
         public void image(String resource, float x, float y, float w, float h, int tint) { calls.add("image"); }

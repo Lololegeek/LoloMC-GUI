@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import {
   Box, Braces, ChevronDown, ChevronRight, Code2, FileCode2, Image,
-  Layers3, Monitor, MousePointer2, PackageOpen, PanelTop, Plus, Redo2,
+  Gauge, Layers3, Monitor, MousePointer2, PackageOpen, PanelTop, Plus, Redo2,
   Search, Smartphone, Trash2, Type, Undo2, Upload, WandSparkles,
 } from 'lucide-react';
 import { defaultCss, defaultXml } from './defaults';
@@ -18,6 +18,7 @@ const palette = [
   { tag: 'image', label: 'Image', icon: Image },
   { tag: 'input', label: 'Champ', icon: Box },
   { tag: 'badge', label: 'Badge', icon: WandSparkles },
+  { tag: 'progress', label: 'Progression', icon: Gauge },
 ];
 const viewports = { compact: [854, 480], standard: [960, 540], wide: [1280, 720] } as const;
 
@@ -190,8 +191,9 @@ export function App() {
             </InspectorGroup>
             <InspectorGroup title="APPARENCE">
               <Field label="Fond" value={inlineValue(selected, 'background')} placeholder="CSS / var(...)" onChange={(v) => updateStyle('background', v)} />
+              <Field label="Ombre" value={inlineValue(selected, 'box-shadow')} placeholder="0 8 24 #00000080" onChange={(v) => updateStyle('box-shadow', v)} />
               <Field label="Couleur" value={inlineValue(selected, 'color')} placeholder="héritée" onChange={(v) => updateStyle('color', v)} />
-              <Field label="Rayon" value={inlineValue(selected, 'border-radius')} placeholder="0" onChange={(v) => updateStyle('border-radius', v)} />
+              <div className="field-grid"><Field label="Rayon" value={inlineValue(selected, 'border-radius')} placeholder="0" onChange={(v) => updateStyle('border-radius', v)} /><Field label="Opacité" value={inlineValue(selected, 'opacity')} placeholder="1" onChange={(v) => updateStyle('opacity', v)} /></div>
             </InspectorGroup>
           </> : <div className="empty-inspector"><MousePointer2 size={24} /><b>Sélectionnez un élément</b><span>Cliquez dans l’aperçu ou dans l’arbre.</span></div>}
         </aside>

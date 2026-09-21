@@ -1,15 +1,182 @@
-:root { --accent: #e9a23b; --ink: #f4f0e8; --muted: #9b9da3; }
-screen { background: #0b0d10; color: var(--ink); font-size: 11; }
-.card { width: 420; height: 260; padding: 24; gap: 10; background: #181b20; border-width: 1; border-color: #3d3325; border-radius: 10; }
-.eyebrow { height: 18; color: var(--accent); font-size: 9; }
-.title { height: 34; font-size: 24; }
-.copy { height: 20; color: var(--muted); }
-input { width: 260; height: 36; padding: 9; background: #252a32; border-width: 1; border-color: #3a414c; border-radius: 6; color: var(--ink); }
-input:focus { border-color: var(--accent); }
-.actions { height: 40; flex-direction: row; gap: 8; }
-button { height: 36; border-radius: 6; }
-.primary { width: 120; background: var(--accent); color: #1d160c; }
-.primary:hover { background: #ffc15f; }
-.secondary { width: 100; background: #2a2f37; color: #ddd9d0; }
-.secondary:hover { background: #3a414c; }
+:root {
+  --accent: #ffb347;
+  --accent-hot: #ffd27a;
+  --ink: #fff8eb;
+  --muted: #a7afbd;
+  --line: #344052;
+  --panel: #151b25;
+}
 
+screen {
+  background: linear-gradient(135deg, #080b11, #172235);
+  color: var(--ink);
+  font-size: 10;
+  padding: 20;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 520;
+  height: 370;
+  padding: 28;
+  gap: 10;
+  background: linear-gradient(145deg, #202a3a, #121722);
+  border-width: 1;
+  border-color: #43516a;
+  border-radius: 16;
+  box-shadow: 0 12 30 #00000080;
+}
+
+.topline {
+  width: 100%;
+  height: 52;
+  flex-direction: row;
+  gap: 12;
+  align-items: center;
+}
+
+.brandmark {
+  width: 46;
+  height: 46;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffbd5c, #db6b31);
+  border-radius: 13;
+  box-shadow: 0 5 14 #e9893d80;
+}
+
+.brandmark label {
+  width: 46;
+  height: 46;
+  color: #25170d;
+  font-size: 22;
+  text-align: center;
+  vertical-align: center;
+  text-shadow: 1 1 #fff0c2;
+}
+
+.brandcopy {
+  flex: 1;
+  height: 42;
+  gap: 3;
+}
+
+.eyebrow {
+  height: 19;
+  color: var(--accent);
+  font-size: 9;
+  letter-spacing: 1;
+  text-transform: uppercase;
+}
+
+.microcopy {
+  height: 17;
+  color: var(--muted);
+  font-size: 9;
+}
+
+.status {
+  width: 48;
+  height: 22;
+  padding: 5 8;
+  background: #213d37;
+  border-width: 1;
+  border-color: #3d806c;
+  border-radius: 11;
+  color: #9dffd8;
+  font-size: 8;
+  text-align: center;
+  vertical-align: center;
+}
+
+.title {
+  width: 100%;
+  height: 42;
+  color: var(--ink);
+  font-size: 25;
+  text-shadow: 2 2 #00000080;
+}
+
+.copy {
+  width: 100%;
+  height: 30;
+  color: var(--muted);
+  font-size: 10;
+  line-height: 13;
+}
+
+input {
+  width: 100%;
+  height: 42;
+  padding: 10 13;
+  background: #0f141d;
+  border-width: 1;
+  border-color: var(--line);
+  border-radius: 9;
+  color: var(--ink);
+  font-size: 11;
+}
+
+input:focus {
+  background: #131b28;
+  border-color: var(--accent);
+  box-shadow: 0 0 12 #ffb34755;
+}
+
+.progress {
+  width: 100%;
+  height: 7;
+  background: #0d1118;
+  progress-color: var(--accent);
+  border-radius: 4;
+}
+
+.actions {
+  width: 100%;
+  height: 44;
+  flex-direction: row;
+  gap: 10;
+  align-items: center;
+}
+
+button {
+  flex: 1;
+  height: 42;
+  border-radius: 10;
+  font-size: 11;
+  text-align: center;
+  vertical-align: center;
+}
+
+.primary {
+  background: linear-gradient(90deg, #f29a35, #ffc35f);
+  color: #291a0e;
+  box-shadow: 0 5 15 #f0a54666;
+}
+
+.primary:hover {
+  background: linear-gradient(90deg, #ffc15b, #ffe0a0);
+}
+
+.secondary {
+  flex: 0.65;
+  background: #252e3d;
+  border-width: 1;
+  border-color: #3d4b61;
+  color: #e2e8f0;
+}
+
+.secondary:hover {
+  background: #344258;
+  border-color: #647896;
+}
+
+.footnote {
+  width: 100%;
+  height: 16;
+  color: #768296;
+  font-size: 8;
+  text-align: center;
+  vertical-align: center;
+}

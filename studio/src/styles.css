@@ -63,7 +63,9 @@ button { color: inherit; }
 .preview-root { display: block; width: 100%; height: 100%; overflow: hidden; user-select: none; }
 :where(.preview-root) > :where(lolo-screen) { width: 100%; height: 100%; overflow: hidden; }
 :where(.preview-root) :where(lolo-screen, lolo-panel, lolo-spacer) { display: flex; flex-direction: column; min-width: 0; flex-shrink: 0; }
-:where(.preview-root) :where(lolo-label, button, lolo-badge, lolo-avatar, input, lolo-image) { display: flex; flex: 0 0 auto; align-items: center; min-width: 0; }
+:where(.preview-root) :where(lolo-label, button, lolo-badge, lolo-avatar, input, lolo-image, lolo-progress) { display: flex; flex: 0 0 auto; align-items: center; min-width: 0; }
+:where(.preview-root) lolo-progress { position: relative; overflow: hidden; }
+:where(.preview-root) lolo-progress::after { content: ''; display: block; flex: 0 0 var(--lolo-progress, 0%); align-self: stretch; background: var(--progress-color, #e9a23b); border-radius: inherit; }
 :where(.preview-root) button { justify-content: center; border: 0; background: transparent; cursor: pointer; font: inherit; }
 :where(.preview-root) input { outline: 0; }
 :where(.preview-root) :where(lolo-badge, lolo-avatar) { justify-content: center; }

@@ -1,13 +1,21 @@
 <screen id="example-screen" class="screen">
   <panel id="card" class="card">
-    <label class="eyebrow">LOLOMC GUI • FABRIC EXAMPLE</label>
+    <panel class="topline">
+      <panel class="brandmark"><label>✦</label></panel>
+      <panel class="brandcopy">
+        <label class="eyebrow">LOLOMC GUI • FABRIC EXAMPLE</label>
+        <label class="microcopy">XML + CSS, directement en jeu</label>
+      </panel>
+      <badge class="status">LIVE</badge>
+    </panel>
     <label class="title">Une vraie GUI en jeu</label>
-    <label class="copy">Cette interface vient de screen.xml et screen.css.</label>
+    <label class="copy">Une interface responsive, stylée et entièrement personnalisable sans toucher au rendu Minecraft.</label>
     <input id="name" placeholder="Ton pseudo" on-change="nameChanged" />
+    <progress class="progress" value="0.72" max="1" />
     <panel class="actions">
-      <button id="play" class="primary" on-click="play">Jouer</button>
+      <button id="play" class="primary" on-click="play">Jouer maintenant</button>
       <button id="close" class="secondary" on-click="close">Fermer</button>
     </panel>
+    <label class="footnote">Touche O pour rouvrir cette démo</label>
   </panel>
 </screen>
-

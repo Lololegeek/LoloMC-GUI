@@ -8,7 +8,8 @@ LoloMC GUI réunit un runtime Java léger et **LoloMC GUI Studio**, un éditeur 
 
 - XML déclaratif sécurisé : `screen`, `panel`, `label`, `button`, `input`, `image`, `badge`, `avatar`, `spacer`.
 - CSS spécialisé : cascade, classes, identifiants, descendants, variables, héritage, `:hover`, `:active`, `:focus`.
-- Layout flex ligne/colonne, tailles fixes ou en pourcentage, `flex`, position absolue, padding et gap.
+- Layout flex ligne/colonne responsive, centrage, alignements, marges, tailles fixes ou en pourcentage, `flex`, position absolue, padding et gap.
+- Rendu premium portable : gradients linéaires, ombres, coins arrondis, opacité, couleurs RGBA, texte aligné/ombré, barre `progress`.
 - Clics, actions nommées, focus, saisie et suppression dans les champs texte.
 - Backend de rendu indépendant de Fabric, Quilt, Forge, NeoForge et des mappings.
 - Studio avec aperçu interactif, palette, arbre, inspecteur, XML/CSS, undo/redo, import et export ZIP.

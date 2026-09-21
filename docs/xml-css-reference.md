@@ -13,6 +13,7 @@ LoloMC GUI emploie un dialecte volontairement petit, stable et prévisible. Un f
 | `input` | Champ texte avec `value`, `placeholder` et `on-change` |
 | `image` | Texture identifiée par `src` |
 | `badge`, `avatar` | Petits composants visuels |
+| `progress` | Barre de progression pilotée par `value`, `max` et `progress-color` |
 | `spacer` | Espace flexible, généralement `flex: 1` |
 
 Tous les éléments acceptent `id`, `class` et `style`. Les actions restent dans le code Java : le XML ne contient jamais de script.
@@ -23,11 +24,10 @@ Le runtime accepte les sélecteurs d’élément (`button`), de classe (`.primar
 
 ## Propriétés
 
-- Layout : `display`, `flex-direction`, `flex`, `width`, `height`, `padding`, `gap`, `position`, `left`, `top`.
-- Apparence : `background`, `color`, `border-width`, `border-color`, `border-radius`, `overflow`, `tint`.
-- Texte : `font-size`, `font-family`, `text-align`.
-- Valeurs : pixels sans unité ou avec `px`, pourcentages sur `width`/`height`, couleurs `#RGB`, `#RRGGBB`, `#AARRGGBB`.
+- Layout : `display`, `flex-direction`, `flex`, `width`, `height`, `min-width`, `max-width`, `padding`, `margin`, `gap`, `justify-content`, `align-items`, `align-self`, `position`, `left`, `right`, `top`, `bottom`.
+- Apparence : `background`, `linear-gradient(...)`, `color`, `opacity`, `box-shadow`, `border-width`, `border-color`, `border-radius`, `overflow`, `tint`.
+- Texte : `font-size`, `line-height`, `letter-spacing`, `font-family`, `text-align`, `vertical-align`, `text-transform`, `text-shadow`, `placeholder-color`.
+- Valeurs : pixels sans unité ou avec `px`, pourcentages sur `width`/`height`, couleurs `#RGB`, `#RRGGBB`, `#RRGGBBAA`, `rgb(...)` et `rgba(...)`.
 - Variables globales : déclarer `--accent` dans `:root`, puis utiliser `var(--accent)`.
 
-Ce n’est pas un navigateur : grid, animations CSS, `calc()`, marges complexes et combinateur enfant `>` ne font pas partie de la version 0.1.
-
+Ce n’est pas un navigateur : grid, animations CSS, `calc()` et combinateur enfant `>` ne font pas partie de la version 0.1. Les gradients sont volontairement linéaires et les ombres sont rendues par l’adaptateur Minecraft pour rester compatibles avec les anciennes versions.
