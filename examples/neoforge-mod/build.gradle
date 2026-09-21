@@ -1,0 +1,36 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.gradle.userdev' version '7.0.167'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base { archivesName = project.archives_base_name }
+
+repositories { mavenCentral() }
+
+neoForge { version = "${project.minecraft_version}-${project.neoforge_version}" }
+
+sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
+
+dependencies { implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}" }
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.encoding = 'UTF-8'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+jar {
+    from('../../LICENSE') { rename { "${it}_${project.base.archivesName.get()}" } }
+}
+
+publishing {
+    publications { mavenJava(MavenPublication) { from components.java } }
+}

@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.neoforged.net/releases' }
+        maven { url = 'https://maven.minecraftforge.net/' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'lolomc-gui-neoforge-example'
+
+includeBuild('../../runtime-java') {
+    dependencySubstitution {
+        substitute module('dev.lolomc:lolomc-gui') using project(':')
+    }
+}

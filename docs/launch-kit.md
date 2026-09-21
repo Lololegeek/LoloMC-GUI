@@ -17,7 +17,7 @@ This first public release includes:
 - A Java 8-compatible runtime for XML documents, CSS styling, responsive layout, state, and input handling.
 - A small `RenderBackend` contract that keeps Minecraft-version-specific rendering code in adapters.
 - LoloMC GUI Studio with an interactive preview, XML/CSS editing, drag positioning, undo/redo, import, and export.
-- A runnable Fabric 1.21.1 example mod showing a responsive in-game screen.
+- Runnable Fabric 1.21.1, Forge 1.20.1, and NeoForge 1.21.1 example mods showing the same responsive in-game screen.
 - A server-selector example and compatibility documentation for Fabric, Forge, NeoForge, and server-side integrations.
 
 The API is intentionally small and experimental in 0.1.0. Feedback, adapter contributions, and example screens are welcome.
@@ -50,7 +50,7 @@ I have been working on LoloMC GUI, a loader-neutral GUI library for Minecraft mo
 
 The idea is simple: describe the screen in XML, style it with CSS, and keep the Minecraft-specific rendering code inside a small adapter. The repository also includes LoloMC GUI Studio, a visual editor with an interactive preview, drag positioning, XML/CSS tabs, undo/redo, and export.
 
-The first release includes a runnable Fabric 1.21.1 example with a responsive server-style screen. It is aimed at mod menus, server selectors, settings, onboarding, and other interfaces that should look more intentional than a pile of hard-coded rectangles.
+The first release includes runnable Fabric, Forge, and NeoForge examples with a responsive server-style screen. It is aimed at mod menus, server selectors, settings, onboarding, and other interfaces that should look more intentional than a pile of hard-coded rectangles.
 
 GitHub: https://github.com/Lololegeek/LoloMC-GUI
 

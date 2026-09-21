@@ -12,7 +12,7 @@
 
 Compatibility does not mean that one mod JAR targeting obfuscated Minecraft classes will run on every version. LoloMC GUI makes the **document, styles, layout, and interactions** universal; the mod only supplies six rendering primitives and forwards its screen events.
 
-The included example and its build validation target Fabric/Minecraft 1.21.1. It is an executable reference for other families; their graphics APIs must still be adapted to their mappings.
+The checked-in examples target Fabric/Minecraft 1.21.1, Forge/Minecraft 1.20.1, and NeoForge/Minecraft 1.21.1. They are executable references for their loader families; each additional Minecraft line must be built and published as its own adapter artifact.
 
 ## Recommended adapter families
 

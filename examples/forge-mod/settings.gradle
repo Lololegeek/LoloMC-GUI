@@ -1,0 +1,15 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'lolomc-gui-forge-example'
+
+includeBuild('../../runtime-java') {
+    dependencySubstitution {
+        substitute module('dev.lolomc:lolomc-gui') using project(':')
+    }
+}

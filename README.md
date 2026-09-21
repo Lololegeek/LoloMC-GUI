@@ -63,13 +63,13 @@ ui.render(renderBackend);
 runtime-java/  portable Java 8 runtime
 studio/        React + TypeScript visual editor
 adapters/      copy-ready Fabric/Quilt and Forge/NeoForge templates
-examples/      ready-to-open screens and a runnable Java example
+examples/      Fabric, Forge, and NeoForge runnable client examples
 docs/          loader integration, compatibility, and XML/CSS reference
 ```
 
 Start with the [integration guide](docs/integration.md), read the [XML/CSS reference](docs/xml-css-reference.md), then check the [compatibility matrix](docs/compatibility.md). The `server-selector` example can be imported directly into Studio.
 
-To see the library inside a real Minecraft GUI, open the [Fabric example](examples/fabric-mod/README.md), then run `npm run build:example-fabric` and `npm run run:example-fabric`. Press **O** in the development client to open the XML/CSS screen.
+To see the library inside a real Minecraft GUI, open one of the loader examples, then run its Gradle build. The root scripts are `npm run build:example-fabric`, `npm run build:example-forge`, `npm run build:example-neoforge`, or `npm run build:loader-matrix`. Press **O** in the development client to open the XML/CSS screen.
 
 ## Compatibility philosophy
 
