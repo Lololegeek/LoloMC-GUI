@@ -40,6 +40,10 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Make Gradle wrapper executable
+        working-directory: ${{ matrix.path }}
+        run: chmod +x gradlew
+
       - name: Build ${{ matrix.loader }} example
         working-directory: ${{ matrix.path }}
         run: ./gradlew build --no-daemon
