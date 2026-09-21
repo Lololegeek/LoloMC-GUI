@@ -10,47 +10,49 @@
 screen {
   background: linear-gradient(135deg, #080b11, #172235);
   color: var(--ink);
-  font-size: 10;
-  padding: 20;
+  font-size: 8;
+  padding: 10;
   justify-content: center;
   align-items: center;
 }
 
 .card {
-  width: 520;
-  height: 370;
-  padding: 28;
-  gap: 10;
+  width: 92%;
+  max-width: 520;
+  height: 84%;
+  max-height: 370;
+  padding: 14;
+  gap: 5;
   background: linear-gradient(145deg, #202a3a, #121722);
   border-width: 1;
   border-color: #43516a;
-  border-radius: 16;
-  box-shadow: 0 12 30 #00000080;
+  border-radius: 10;
+  box-shadow: 0 8 18 #00000080;
 }
 
 .topline {
   width: 100%;
-  height: 52;
+  height: 34;
   flex-direction: row;
-  gap: 12;
+  gap: 7;
   align-items: center;
 }
 
 .brandmark {
-  width: 46;
-  height: 46;
+  width: 30;
+  height: 30;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #ffbd5c, #db6b31);
-  border-radius: 13;
-  box-shadow: 0 5 14 #e9893d80;
+  border-radius: 8;
+  box-shadow: 0 3 8 #e9893d80;
 }
 
 .brandmark label {
-  width: 46;
-  height: 46;
+  width: 30;
+  height: 30;
   color: #25170d;
-  font-size: 22;
+  font-size: 14;
   text-align: center;
   vertical-align: center;
   text-shadow: 1 1 #fff0c2;
@@ -58,64 +60,65 @@ screen {
 
 .brandcopy {
   flex: 1;
-  height: 42;
-  gap: 3;
+  height: 30;
+  gap: 1;
 }
 
 .eyebrow {
-  height: 19;
+  height: 12;
   color: var(--accent);
-  font-size: 9;
-  letter-spacing: 1;
+  font-size: 5;
+  letter-spacing: .5;
   text-transform: uppercase;
 }
 
 .microcopy {
-  height: 17;
+  height: 11;
   color: var(--muted);
-  font-size: 9;
+  font-size: 5;
 }
 
 .status {
-  width: 48;
-  height: 22;
-  padding: 5 8;
+  width: 34;
+  height: 16;
+  padding: 3 5;
   background: #213d37;
   border-width: 1;
   border-color: #3d806c;
-  border-radius: 11;
+  border-radius: 8;
   color: #9dffd8;
-  font-size: 8;
+  font-size: 5;
   text-align: center;
   vertical-align: center;
 }
 
 .title {
   width: 100%;
-  height: 42;
+  height: 24;
   color: var(--ink);
-  font-size: 25;
-  text-shadow: 2 2 #00000080;
+  font-size: 14;
+  text-shadow: 1 1 #00000080;
 }
 
 .copy {
   width: 100%;
-  height: 30;
+  height: 18;
+  overflow: hidden;
   color: var(--muted);
-  font-size: 10;
-  line-height: 13;
+  font-size: 7;
+  line-height: 9;
 }
 
 input {
   width: 100%;
-  height: 42;
-  padding: 10 13;
+  height: 28;
+  padding: 6 8;
   background: #0f141d;
   border-width: 1;
   border-color: var(--line);
-  border-radius: 9;
+  border-radius: 6;
   color: var(--ink);
-  font-size: 11;
+  font-size: 7;
 }
 
 input:focus {
@@ -126,25 +129,25 @@ input:focus {
 
 .progress {
   width: 100%;
-  height: 7;
+  height: 4;
   background: #0d1118;
   progress-color: var(--accent);
-  border-radius: 4;
+  border-radius: 2;
 }
 
 .actions {
   width: 100%;
-  height: 44;
+  height: 30;
   flex-direction: row;
-  gap: 10;
+  gap: 6;
   align-items: center;
 }
 
 button {
   flex: 1;
-  height: 42;
-  border-radius: 10;
-  font-size: 11;
+  height: 28;
+  border-radius: 6;
+  font-size: 7;
   text-align: center;
   vertical-align: center;
 }
@@ -152,7 +155,7 @@ button {
 .primary {
   background: linear-gradient(90deg, #f29a35, #ffc35f);
   color: #291a0e;
-  box-shadow: 0 5 15 #f0a54666;
+  box-shadow: 0 3 8 #f0a54666;
 }
 
 .primary:hover {
@@ -174,9 +177,9 @@ button {
 
 .footnote {
   width: 100%;
-  height: 16;
+  height: 11;
   color: #768296;
-  font-size: 8;
+  font-size: 5;
   text-align: center;
   vertical-align: center;
 }

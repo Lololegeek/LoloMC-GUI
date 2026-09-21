@@ -9,7 +9,7 @@
       <badge class="status">LIVE</badge>
     </panel>
     <label class="title">Une vraie GUI en jeu</label>
-    <label class="copy">Une interface responsive, stylée et entièrement personnalisable sans toucher au rendu Minecraft.</label>
+    <label class="copy">Responsive, stylée et personnalisable avec XML + CSS.</label>
     <input id="name" placeholder="Ton pseudo" on-change="nameChanged" />
     <progress class="progress" value="0.72" max="1" />
     <panel class="actions">
