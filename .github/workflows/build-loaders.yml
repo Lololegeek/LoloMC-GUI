@@ -1,0 +1,52 @@
+name: Build Minecraft loader artifacts
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+jobs:
+  build-loader:
+    name: ${{ matrix.loader }} / Minecraft ${{ matrix.minecraft }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - loader: fabric
+            minecraft: 1.21.1
+            java: 21
+            path: examples/fabric-mod
+          - loader: forge
+            minecraft: 1.20.1
+            java: 17
+            path: examples/forge-mod
+          - loader: neoforge
+            minecraft: 1.21.1
+            java: 21
+            path: examples/neoforge-mod
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build ${{ matrix.loader }} example
+        working-directory: ${{ matrix.path }}
+        run: ./gradlew build --no-daemon
+
+      - name: Upload ${{ matrix.loader }} artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lolomc-gui-${{ matrix.loader }}-${{ matrix.minecraft }}
+          path: ${{ matrix.path }}/build/libs/*.jar
+          if-no-files-found: error
