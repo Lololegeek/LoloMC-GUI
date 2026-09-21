@@ -26,7 +26,7 @@ final class YarnRenderBackend implements RenderBackend {
     }
 
     @Override public void image(String resource, float x, float y, float width, float height, int tint) {
-        // Add a ResourceLocation + blit call here for image nodes used by your mod.
+        // Add a ResourceLocation + drawTexture call here for image nodes used by your mod.
     }
 
     @Override public void pushClip(float x, float y, float width, float height) {
@@ -35,3 +35,4 @@ final class YarnRenderBackend implements RenderBackend {
 
     @Override public void popClip() { graphics.disableScissor(); }
 }
+
