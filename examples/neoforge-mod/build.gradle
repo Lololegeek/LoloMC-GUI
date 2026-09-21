@@ -11,11 +11,12 @@ base { archivesName = project.archives_base_name }
 
 repositories { mavenCentral() }
 
-neoForge { version = "${project.minecraft_version}-${project.neoforge_version}" }
-
 sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
 
-dependencies { implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}" }
+dependencies {
+    implementation "net.neoforged:neoforge:${project.minecraft_version}-${project.neoforge_version}"
+    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
+}
 
 tasks.withType(JavaCompile).configureEach {
     options.release = 21

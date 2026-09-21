@@ -17,6 +17,10 @@ final class MojmapRenderBackend implements RenderBackend {
         graphics.drawString(font, text, (int) (x / scale), (int) (y / scale), argb, false);
         graphics.pose().popPose();
     }
+    @Override public void image(String resource, float x, float y, float width, float height, int tint) {
+        // Resource-backed image drawing is intentionally left to the host mod.
+        // The runtime still exposes the node so a mod can map it to its atlas.
+    }
     @Override public void pushClip(float x, float y, float width, float height) { graphics.enableScissor((int) x, (int) y, (int) (x + width), (int) (y + height)); }
     @Override public void popClip() { graphics.disableScissor(); }
 }
