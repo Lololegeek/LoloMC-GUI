@@ -1,0 +1,15 @@
+{
+  "name": "lolomc-gui",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["studio"],
+  "scripts": {
+    "build": "npm run build:runtime && npm run build -w studio",
+    "build:runtime": "powershell -NoProfile -ExecutionPolicy Bypass -File ./build.ps1 -SkipStudio",
+    "test": "npm run test:runtime && npm run test -w studio",
+    "test:runtime": "powershell -NoProfile -ExecutionPolicy Bypass -File ./build.ps1 -TestOnly",
+    "typecheck": "npm run typecheck -w studio",
+    "lint": "npm run lint -w studio",
+    "check": "npm run typecheck && npm run lint && npm run build && npm test"
+  }
+}

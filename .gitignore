@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+.idea/
+.vscode/
+*.iml
+*.log
+*.tsbuildinfo
+.DS_Store
+.claude/
+.playwright-cli/
+output/

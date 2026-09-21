@@ -1,0 +1,22 @@
+<screen id="server-screen" class="app-shell">
+  <panel class="sidebar">
+    <label class="logo">LOLOMC</label>
+    <label class="muted">SERVEURS</label>
+    <button class="nav active">Découvrir</button>
+    <button class="nav">Favoris</button>
+    <spacer flex="1" />
+    <label class="muted">Connecté en tant que Loévan</label>
+  </panel>
+  <panel class="content">
+    <label class="eyebrow">MULTIJOUEUR</label>
+    <label class="title">Choisir un monde</label>
+    <input id="search" placeholder="Rechercher..." on-change="filterServers" />
+    <panel class="featured">
+      <label class="eyebrow">RECOMMANDÉ</label>
+      <label class="server-name">LoloCraft Origins</label>
+      <label class="muted">Survie, économie et aventures.</label>
+      <button id="join" class="primary" on-click="joinServer">Rejoindre</button>
+    </panel>
+  </panel>
+</screen>
+

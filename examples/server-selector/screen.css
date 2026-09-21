@@ -1,0 +1,18 @@
+:root { --accent: #e9a23b; --ink: #f2eee6; --muted: #858991; }
+screen { flex-direction: row; background: #0d0f12; color: var(--ink); font-size: 11; }
+.sidebar { width: 210; padding: 18; gap: 9; background: #12151a; }
+.logo { height: 28; color: var(--accent); font-size: 18; }
+.muted { height: 18; color: var(--muted); font-size: 9; }
+.nav { height: 36; padding: 10; border-radius: 6; color: #a4a7ad; }
+.nav:hover, .nav.active { background: #252930; color: #ffffff; }
+spacer { flex: 1; }
+.content { flex: 1; padding: 28; gap: 10; }
+.eyebrow { height: 16; color: var(--accent); font-size: 9; }
+.title { height: 34; font-size: 25; }
+input { width: 240; height: 36; padding: 10; background: #191c21; border-width: 1; border-color: #30343b; border-radius: 6; }
+input:focus { border-color: var(--accent); }
+.featured { height: 190; padding: 22; gap: 8; background: #1a1c20; border-width: 1; border-color: #493b27; border-radius: 10; }
+.server-name { height: 34; font-size: 23; }
+.primary { width: 120; height: 38; background: var(--accent); color: #1c160d; border-radius: 6; }
+.primary:hover { background: #ffc260; }
+
