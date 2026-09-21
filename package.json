@@ -6,6 +6,8 @@
   "scripts": {
     "build": "npm run build:runtime && npm run build -w studio",
     "build:runtime": "powershell -NoProfile -ExecutionPolicy Bypass -File ./build.ps1 -SkipStudio",
+    "build:example-fabric": "npm run build:runtime && powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-Location examples/fabric-mod; & .\\gradlew.bat build\"",
+    "run:example-fabric": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-Location examples/fabric-mod; & .\\gradlew.bat runClient\"",
     "test": "npm run test:runtime && npm run test -w studio",
     "test:runtime": "powershell -NoProfile -ExecutionPolicy Bypass -File ./build.ps1 -TestOnly",
     "typecheck": "npm run typecheck -w studio",

@@ -1,0 +1,13 @@
+<screen id="example-screen" class="screen">
+  <panel id="card" class="card">
+    <label class="eyebrow">LOLOMC GUI • FABRIC EXAMPLE</label>
+    <label class="title">Une vraie GUI en jeu</label>
+    <label class="copy">Cette interface vient de screen.xml et screen.css.</label>
+    <input id="name" placeholder="Ton pseudo" on-change="nameChanged" />
+    <panel class="actions">
+      <button id="play" class="primary" on-click="play">Jouer</button>
+      <button id="close" class="secondary" on-click="close">Fermer</button>
+    </panel>
+  </panel>
+</screen>
+

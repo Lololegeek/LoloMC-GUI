@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "lolomc_gui_example",
+  "version": "${version}",
+  "name": "LoloMC GUI Example",
+  "description": "A real in-game XML/CSS screen powered by LoloMC GUI.",
+  "authors": ["LoloMC GUI contributors"],
+  "contact": { "sources": "https://github.com/lolomc/lolomc-gui" },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["dev.lolomc.example.LoloGuiExampleClient"] },
+  "depends": {
+    "fabricloader": ">=0.16.5",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": ">=0.107.0"
+  }
+}
+

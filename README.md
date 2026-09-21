@@ -64,10 +64,13 @@ runtime-java/  moteur Java 8 portable et sans dépendance
 studio/        éditeur visuel React + TypeScript
 adapters/      écrans copiables Fabric/Quilt et Forge/NeoForge
 examples/      écrans prêts à ouvrir et exemple Java
+examples/fabric-mod/ mod Fabric jouable, touche O, ressources XML/CSS
 docs/          intégration loaders, compatibilité et référence XML/CSS
 ```
 
 Commencez par [le guide d’intégration](docs/integration.md), consultez [la référence XML/CSS](docs/xml-css-reference.md), puis lisez [la matrice de compatibilité](docs/compatibility.md). L’exemple `server-selector` est directement importable dans le Studio.
+
+Pour voir la bibliothèque dans une vraie GUI Minecraft, ouvrez [l’exemple Fabric](examples/fabric-mod/README.md), puis lancez `npm run build:example-fabric` et `npm run run:example-fabric`. Dans le client de développement, la touche **O** ouvre l’écran XML/CSS.
 
 ## Philosophie de compatibilité
 

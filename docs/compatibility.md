@@ -12,6 +12,8 @@
 
 La compatibilité ne signifie pas qu’un même mod JAR ciblant les classes obfusquées de Minecraft fonctionne sur toutes les versions. LoloMC GUI rend le **document, le style, le layout et les interactions** universels ; le mod fournit seulement les six primitives de rendu et relaie les événements de son écran.
 
+L’exemple livré et sa validation de build ciblent Fabric/Minecraft 1.21.1. Il sert de référence exécutable pour les autres familles ; les APIs de rendu spécifiques doivent être adaptées selon les mappings.
+
 ## Familles d’adaptateurs conseillées
 
 - 1.12.2–1.16.5 : backend basé sur `MatrixStack`/primitives historiques.
@@ -19,4 +21,3 @@ La compatibilité ne signifie pas qu’un même mod JAR ciblant les classes obfu
 - 1.20–1.21.x : backend `GuiGraphics` (Mojmap) ou `DrawContext` (Yarn).
 
 Le runtime reste identique entre ces modules. Seul le fichier adaptateur change.
-
