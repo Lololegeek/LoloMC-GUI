@@ -1,23 +1,23 @@
-# Compatibilité
+# Compatibility
 
-## Garantie du cœur 0.1
+## Core 0.1 support
 
-| Environnement | Statut | Pourquoi |
+| Environment | Status | Why |
 |---|---|---|
-| Java 8 à 21+ | Compatible | bytecode compilé avec `--release 8`, API standard uniquement |
-| Fabric / Quilt | Compatible via adaptateur | aucune dépendance loader, mixin ou mapping |
-| Forge / NeoForge | Compatible via adaptateur | aucune dépendance loader, événement ou mapping |
-| Minecraft 1.12.2 à 1.21.x | Architecture compatible | les appels de rendu propres à chaque famille sont isolés dans `RenderBackend` |
-| Client vanilla sans loader | Possible | nécessite un point d’injection fourni par l’intégrateur |
+| Java 8 to 21+ | Compatible | bytecode is compiled with `--release 8`, standard API only |
+| Fabric / Quilt | Compatible through an adapter | no loader, mixin, or mapping dependency |
+| Forge / NeoForge | Compatible through an adapter | no loader, event, or mapping dependency |
+| Minecraft 1.12.2 to 1.21.x | Architecture-compatible | version-specific rendering calls are isolated in `RenderBackend` |
+| Vanilla client without a loader | Possible | requires an injection point supplied by the integrator |
 
-La compatibilité ne signifie pas qu’un même mod JAR ciblant les classes obfusquées de Minecraft fonctionne sur toutes les versions. LoloMC GUI rend le **document, le style, le layout et les interactions** universels ; le mod fournit seulement les six primitives de rendu et relaie les événements de son écran.
+Compatibility does not mean that one mod JAR targeting obfuscated Minecraft classes will run on every version. LoloMC GUI makes the **document, styles, layout, and interactions** universal; the mod only supplies six rendering primitives and forwards its screen events.
 
-L’exemple livré et sa validation de build ciblent Fabric/Minecraft 1.21.1. Il sert de référence exécutable pour les autres familles ; les APIs de rendu spécifiques doivent être adaptées selon les mappings.
+The included example and its build validation target Fabric/Minecraft 1.21.1. It is an executable reference for other families; their graphics APIs must still be adapted to their mappings.
 
-## Familles d’adaptateurs conseillées
+## Recommended adapter families
 
-- 1.12.2–1.16.5 : backend basé sur `MatrixStack`/primitives historiques.
-- 1.17–1.19.4 : backend `PoseStack` ou `MatrixStack` selon mappings.
-- 1.20–1.21.x : backend `GuiGraphics` (Mojmap) ou `DrawContext` (Yarn).
+- 1.12.2–1.16.5: backend based on `MatrixStack` and historical primitives.
+- 1.17–1.19.4: `PoseStack` or `MatrixStack` backend depending on mappings.
+- 1.20–1.21.x: `GuiGraphics` (Mojmap) or `DrawContext` (Yarn) backend.
 
-Le runtime reste identique entre ces modules. Seul le fichier adaptateur change.
+The runtime stays identical between these modules. Only the adapter file changes.

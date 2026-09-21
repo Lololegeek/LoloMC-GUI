@@ -1,33 +1,33 @@
-# Référence XML/CSS
+# XML/CSS reference
 
-LoloMC GUI emploie un dialecte volontairement petit, stable et prévisible. Un fichier XML décrit la sémantique ; un fichier CSS contrôle tout le visuel.
+LoloMC GUI uses a deliberately small, stable, predictable dialect. XML describes the semantic tree; CSS controls the visual result.
 
-## Éléments
+## Elements
 
-| Élément | Usage |
+| Element | Usage |
 |---|---|
-| `screen` | Racine unique du document |
-| `panel` | Conteneur flex générique |
-| `label` | Texte |
-| `button` | Action cliquable avec `on-click` |
-| `input` | Champ texte avec `value`, `placeholder` et `on-change` |
-| `image` | Texture identifiée par `src` |
-| `badge`, `avatar` | Petits composants visuels |
-| `progress` | Barre de progression pilotée par `value`, `max` et `progress-color` |
-| `spacer` | Espace flexible, généralement `flex: 1` |
+| `screen` | Single document root |
+| `panel` | Generic flex container |
+| `label` | Text |
+| `button` | Clickable action with `on-click` |
+| `input` | Text field with `value`, `placeholder`, and `on-change` |
+| `image` | Texture identified by `src` |
+| `badge`, `avatar` | Small visual components |
+| `progress` | Progress bar driven by `value`, `max`, and `progress-color` |
+| `spacer` | Flexible space, usually `flex: 1` |
 
-Tous les éléments acceptent `id`, `class` et `style`. Les actions restent dans le code Java : le XML ne contient jamais de script.
+Every element accepts `id`, `class`, and `style`. Actions stay in Java code; XML never contains scripts.
 
-## Sélecteurs
+## Selectors
 
-Le runtime accepte les sélecteurs d’élément (`button`), de classe (`.primary`), d’identifiant (`#join`), combinés (`button.primary`), descendants (`.toolbar button`), listes séparées par une virgule et états `:hover`, `:active`, `:focus`. La cascade suit spécificité puis ordre source.
+The runtime supports element selectors (`button`), classes (`.primary`), IDs (`#join`), combinations (`button.primary`), descendants (`.toolbar button`), comma-separated lists, and `:hover`, `:active`, and `:focus` states. The cascade follows specificity and then source order.
 
-## Propriétés
+## Properties
 
-- Layout : `display`, `flex-direction`, `flex`, `width`, `height`, `min-width`, `max-width`, `padding`, `margin`, `gap`, `justify-content`, `align-items`, `align-self`, `position`, `left`, `right`, `top`, `bottom`.
-- Apparence : `background`, `linear-gradient(...)`, `color`, `opacity`, `box-shadow`, `border-width`, `border-color`, `border-radius`, `overflow`, `tint`.
-- Texte : `font-size`, `line-height`, `letter-spacing`, `font-family`, `text-align`, `vertical-align`, `text-transform`, `text-shadow`, `placeholder-color`.
-- Valeurs : pixels sans unité ou avec `px`, pourcentages sur `width`/`height`, couleurs `#RGB`, `#RRGGBB`, `#RRGGBBAA`, `rgb(...)` et `rgba(...)`.
-- Variables globales : déclarer `--accent` dans `:root`, puis utiliser `var(--accent)`.
+- Layout: `display`, `flex-direction`, `flex`, `width`, `height`, `min-width`, `max-width`, `padding`, `margin`, `gap`, `justify-content`, `align-items`, `align-self`, `position`, `left`, `right`, `top`, `bottom`.
+- Appearance: `background`, `linear-gradient(...)`, `color`, `opacity`, `box-shadow`, `border-width`, `border-color`, `border-radius`, `overflow`, `tint`.
+- Text: `font-size`, `line-height`, `letter-spacing`, `font-family`, `text-align`, `vertical-align`, `text-transform`, `text-shadow`, `placeholder-color`.
+- Values: unitless pixels or `px`, percentages for `width`/`height`, `#RGB`, `#RRGGBB`, `#RRGGBBAA`, `rgb(...)`, and `rgba(...)` colors.
+- Global variables: declare `--accent` in `:root`, then use `var(--accent)`.
 
-Ce n’est pas un navigateur : grid, animations CSS, `calc()` et combinateur enfant `>` ne font pas partie de la version 0.1. Les gradients sont volontairement linéaires et les ombres sont rendues par l’adaptateur Minecraft pour rester compatibles avec les anciennes versions.
+This is not a browser: grid, CSS animations, `calc()`, and the child combinator `>` are not part of version 0.1. Gradients are intentionally linear, and shadows are rendered by the Minecraft adapter to stay compatible with older versions.

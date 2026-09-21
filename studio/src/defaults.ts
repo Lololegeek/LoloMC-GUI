@@ -4,37 +4,37 @@ export const defaultXml = `<screen id="server-screen" class="app-shell">
       <badge class="brand-mark">L</badge>
       <panel>
         <label class="eyebrow">LOLOMC GUI</label>
-        <label class="brand-title">Serveurs</label>
+        <label class="brand-title">Servers</label>
       </panel>
     </panel>
     <label class="nav-label">NAVIGATION</label>
-    <button class="nav-item active">Serveurs publics</button>
-    <button class="nav-item">Mes favoris</button>
-    <button class="nav-item">Connexion directe</button>
+    <button class="nav-item active">Public servers</button>
+    <button class="nav-item">My favorites</button>
+    <button class="nav-item">Direct connection</button>
     <spacer flex="1" />
     <panel class="profile">
       <avatar>LV</avatar>
-      <panel><label>Loévan</label><label class="muted">Prêt à jouer</label></panel>
+      <panel><label>Loevan</label><label class="muted">Ready to play</label></panel>
     </panel>
   </panel>
   <panel id="content" class="content">
     <panel class="topbar">
-      <panel><label class="eyebrow">MULTIJOUEUR</label><label class="heading">Choisir un monde</label></panel>
-      <input id="search" placeholder="Rechercher un serveur..." />
+      <panel><label class="eyebrow">MULTIPLAYER</label><label class="heading">Choose a world</label></panel>
+      <input id="search" placeholder="Search servers..." />
     </panel>
     <panel class="hero">
-      <badge class="status">RECOMMANDÉ</badge>
+      <badge class="status">FEATURED</badge>
       <label class="hero-title">LoloCraft Origins</label>
-      <label class="hero-copy">Survie, économie et aventures communautaires.</label>
+      <label class="hero-copy">Survival, economy, and community adventures.</label>
       <panel class="hero-actions">
-        <button id="join" class="primary" on-click="joinServer">Rejoindre</button>
-        <button class="ghost">Voir les détails</button>
+        <button id="join" class="primary" on-click="joinServer">Join server</button>
+        <button class="ghost">View details</button>
       </panel>
     </panel>
-    <panel class="section-head"><label class="section-title">Serveurs en ligne</label><label class="muted">3 disponibles</label></panel>
+    <panel class="section-head"><label class="section-title">Online servers</label><label class="muted">3 available</label></panel>
     <panel class="server-grid">
       <panel class="server-card"><badge>AN</badge><label class="card-title">Anarchy</label><label class="muted">142 joueurs</label></panel>
-      <panel class="server-card"><badge>CR</badge><label class="card-title">Créatif</label><label class="muted">38 joueurs</label></panel>
+      <panel class="server-card"><badge>CR</badge><label class="card-title">Creative</label><label class="muted">38 players</label></panel>
       <panel class="server-card"><badge>SK</badge><label class="card-title">Skyblock</label><label class="muted">89 joueurs</label></panel>
     </panel>
   </panel>

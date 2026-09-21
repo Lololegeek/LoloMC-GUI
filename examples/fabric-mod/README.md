@@ -1,28 +1,28 @@
-# LoloMC GUI — mod Fabric exemple
+# LoloMC GUI — Fabric example mod
 
-Ce projet ouvre une vraie interface Minecraft avec la touche **O**.
+This project opens a real Minecraft GUI with the **O** key.
 
-Le mod charge :
+The mod loads:
 
 - `src/main/resources/assets/lolomc_gui_example/ui/screen.xml`
 - `src/main/resources/assets/lolomc_gui_example/ui/screen.css`
 
-Puis il crée `GuiSession`, branche les actions `play`, `nameChanged` et `close`, et délègue le cycle `Screen` à `MinecraftScreenHost`.
+It creates a `GuiSession`, connects the `play`, `nameChanged`, and `close` actions, and delegates the `Screen` lifecycle to `MinecraftScreenHost`.
 
-## Compiler
+## Build
 
-Depuis ce dossier :
+From this directory:
 
 ```powershell
 gradlew.bat build
 ```
 
-Le runtime parent `runtime-java` est consommé automatiquement via `includeBuild`. Le JAR final se trouve dans `build/libs/`.
+The parent `runtime-java` project is consumed automatically through `includeBuild`. The final JAR is written to `build/libs/`.
 
-## Lancer Minecraft de développement
+## Run the Minecraft development client
 
 ```powershell
 gradlew.bat runClient
 ```
 
-Ce module cible Fabric/Minecraft 1.21.1 avec les mappings Yarn ; les APIs de rendu changent entre versions, mais les fichiers XML/CSS et `GuiSession` restent identiques.
+This module targets Fabric/Minecraft 1.21.1 with Yarn mappings. Rendering APIs change between versions, but the XML/CSS files and `GuiSession` remain the same.

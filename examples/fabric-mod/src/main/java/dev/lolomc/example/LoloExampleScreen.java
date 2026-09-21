@@ -31,7 +31,7 @@ final class LoloExampleScreen extends Screen {
             String css = text(resource(client, LoloGuiExampleClient.resource("ui/screen.css")));
             UiDocument document = LoloGui.load(xml, css);
             GuiSession session = LoloGui.session(document)
-                    .on("play", node -> { if (client.player != null) client.player.sendMessage(Text.literal("LoloMC GUI : play"), false); })
+                    .on("play", node -> { if (client.player != null) client.player.sendMessage(Text.literal("LoloMC GUI: play"), false); })
                     .on("nameChanged", node -> { })
                     .on("close", node -> client.setScreen(null));
             return new LoloExampleScreen(session);

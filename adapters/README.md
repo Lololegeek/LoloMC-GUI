@@ -1,18 +1,17 @@
-# Adaptateurs Minecraft
+# Minecraft adapters
 
-Ces recettes sont le raccord concret entre `MinecraftScreenHost` et les classes `Screen` de Minecraft.
+These recipes are the concrete bridge between `MinecraftScreenHost` and the version-specific Minecraft `Screen` classes.
 
-- `fabric-yarn-1.20-1.21` : Fabric ou Quilt avec mappings Yarn et `DrawContext`.
-- `forge-neoforge-mojmap-1.20-1.21` : Forge ou NeoForge avec Mojmap et `GuiGraphics`.
+- `fabric-yarn-1.20-1.21`: Fabric or Quilt with Yarn mappings and `DrawContext`.
+- `forge-neoforge-mojmap-1.20-1.21`: Forge or NeoForge with Mojmap and `GuiGraphics`.
 
-Copiez les deux templates de votre famille dans le source-set client, remplacez le package, puis ouvrez l’écran normalement :
+Copy both templates from your target family into the client source set, replace the package, then open the screen normally:
 
 ```java
 MinecraftClient.getInstance().setScreen(new LoloScreen(session)); // Yarn
 Minecraft.getInstance().setScreen(new LoloScreen(session));       // Mojmap
 ```
 
-Les méthodes de texture ont volontairement un point d’intégration : leurs signatures sont celles qui changent le plus souvent, et les mods ont fréquemment leur propre atlas/cache. Le texte, les rectangles, les bordures, le clipping et toutes les entrées sont déjà raccordés.
+Texture methods intentionally have a clear integration point: their signatures change most often, and mods frequently use their own atlas/cache. Text, rectangles, borders, clipping, and all input forwarding are already wired.
 
-Pour 1.12–1.19, conservez `MinecraftScreenHost` et remplacez seulement les imports/classes graphiques par `GuiScreen`, `MatrixStack` ou `PoseStack`. Le runtime et les fichiers XML/CSS ne changent pas.
-
+For 1.12–1.19, keep `MinecraftScreenHost` and only replace the graphics imports/classes with `GuiScreen`, `MatrixStack`, or `PoseStack`. The runtime and XML/CSS files stay unchanged.

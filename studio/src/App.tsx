@@ -12,13 +12,13 @@ import { Preview } from './Preview';
 type Project = { xml: string; css: string };
 type Tab = 'design' | 'xml' | 'css';
 const palette = [
-  { tag: 'panel', label: 'Panneau', icon: PanelTop },
-  { tag: 'label', label: 'Texte', icon: Type },
-  { tag: 'button', label: 'Bouton', icon: MousePointer2 },
+  { tag: 'panel', label: 'Panel', icon: PanelTop },
+  { tag: 'label', label: 'Text', icon: Type },
+  { tag: 'button', label: 'Button', icon: MousePointer2 },
   { tag: 'image', label: 'Image', icon: Image },
-  { tag: 'input', label: 'Champ', icon: Box },
+  { tag: 'input', label: 'Input', icon: Box },
   { tag: 'badge', label: 'Badge', icon: WandSparkles },
-  { tag: 'progress', label: 'Progression', icon: Gauge },
+  { tag: 'progress', label: 'Progress', icon: Gauge },
 ];
 const viewports = { compact: [854, 480], standard: [960, 540], wide: [1280, 720] } as const;
 
@@ -29,7 +29,7 @@ export function App() {
   const [viewport, setViewport] = useState<keyof typeof viewports>('standard');
   const [zoom, setZoom] = useState(0.82);
   const [query, setQuery] = useState('');
-  const [status, setStatus] = useState('Projet prêt');
+  const [status, setStatus] = useState('Project ready');
   const past = useRef<Project[]>([]);
   const future = useRef<Project[]>([]);
   const fileInput = useRef<HTMLInputElement>(null);
@@ -40,7 +40,7 @@ export function App() {
   }, [project.xml]);
   const selected = parsed.root ? findNode(parsed.root, selectedId) : null;
 
-  const commit = (next: Project, message = 'Modification enregistrée') => {
+  const commit = (next: Project, message = 'Change saved') => {
     if (next.xml === project.xml && next.css === project.css) return;
     past.current.push(project);
     if (past.current.length > 60) past.current.shift();
@@ -51,19 +51,19 @@ export function App() {
   const undo = () => {
     const previous = past.current.pop();
     if (!previous) return;
-    future.current.push(project); setProjectRaw(previous); setStatus('Modification annulée');
+    future.current.push(project); setProjectRaw(previous); setStatus('Change undone');
   };
   const redo = () => {
     const next = future.current.pop();
     if (!next) return;
-    past.current.push(project); setProjectRaw(next); setStatus('Modification rétablie');
+    past.current.push(project); setProjectRaw(next); setStatus('Change redone');
   };
   const add = (tag: string) => {
     try {
       const parent = selected && ['screen', 'panel'].includes(selected.tag) ? selectedId : null;
       const result = addNode(project.xml, parent, tag);
-      commit({ ...project, xml: result.xml }, `${tag} ajouté`); setSelectedId(result.id);
-    } catch (error) { setStatus(error instanceof Error ? error.message : 'Ajout impossible'); }
+      commit({ ...project, xml: result.xml }, `${tag} added`); setSelectedId(result.id);
+    } catch (error) { setStatus(error instanceof Error ? error.message : 'Unable to add element'); }
   };
   const update = (name: string, value: string) => {
     if (!selectedId) return;
@@ -71,7 +71,7 @@ export function App() {
       commit({ ...project, xml: updateNode(project.xml, selectedId, name, value) });
       if (name === 'id') setSelectedId(value || null);
     }
-    catch (error) { setStatus(error instanceof Error ? error.message : 'Modification impossible'); }
+    catch (error) { setStatus(error instanceof Error ? error.message : 'Unable to update element'); }
   };
   const updateStyle = (name: string, value: string) => {
     if (!selected) return;
@@ -86,19 +86,19 @@ export function App() {
     declarations.position = 'absolute';
     declarations.left = `${Math.max(0, left)}px`;
     declarations.top = `${Math.max(0, top)}px`;
-    commit({ ...project, xml: updateNode(project.xml, id, 'style', Object.entries(declarations).map(([key, val]) => `${key}: ${val}`).join('; ')) }, 'Élément déplacé');
+    commit({ ...project, xml: updateNode(project.xml, id, 'style', Object.entries(declarations).map(([key, val]) => `${key}: ${val}`).join('; ')) }, 'Element moved');
   };
   const remove = () => {
     if (!selectedId || selectedId === parsed.root?.attributes.id) return;
-    commit({ ...project, xml: removeNode(project.xml, selectedId) }, 'Élément supprimé'); setSelectedId(null);
+    commit({ ...project, xml: removeNode(project.xml, selectedId) }, 'Element deleted'); setSelectedId(null);
   };
   const exportProject = async () => {
     const zip = new JSZip();
     zip.file('screen.xml', project.xml); zip.file('screen.css', project.css);
-    zip.file('README.txt', 'Copiez ces fichiers dans src/main/resources/assets/<modid>/ui/.\nChargez-les avec LoloGui.load(xmlStream, cssText).');
+    zip.file('README.txt', 'Copy these files to src/main/resources/assets/<modid>/ui/.\nLoad them with LoloGui.load(xmlStream, cssText).');
     const blob = await zip.generateAsync({ type: 'blob' });
     const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'lolomc-gui-screen.zip'; link.click(); URL.revokeObjectURL(link.href);
-    setStatus('Projet exporté');
+    setStatus('Project exported');
   };
   const importFiles = async (files: FileList | null) => {
     if (!files) return;
@@ -108,7 +108,7 @@ export function App() {
       if (file.name.endsWith('.xml')) next = { ...next, xml: content };
       if (file.name.endsWith('.css')) next = { ...next, css: content };
     }
-    commit(next, 'Fichiers importés');
+    commit(next, 'Files imported');
   };
   const [canvasWidth, canvasHeight] = viewports[viewport];
 
@@ -118,27 +118,27 @@ export function App() {
         <div className="wordmark"><span className="logo-cube"><Layers3 size={18} /></span><span><b>LoloMC GUI</b><small>STUDIO • 0.1</small></span></div>
         <div className="project-title"><span className="live-dot" /> server-selector <small>/ screen.xml</small></div>
         <div className="toolbar">
-          <button title="Annuler" onClick={undo} disabled={!past.current.length}><Undo2 size={16} /></button>
-          <button title="Rétablir" onClick={redo} disabled={!future.current.length}><Redo2 size={16} /></button>
+          <button title="Undo" onClick={undo} disabled={!past.current.length}><Undo2 size={16} /></button>
+          <button title="Redo" onClick={redo} disabled={!future.current.length}><Redo2 size={16} /></button>
           <span className="toolbar-separator" />
-          <button onClick={() => fileInput.current?.click()}><Upload size={15} /> Importer</button>
+          <button onClick={() => fileInput.current?.click()}><Upload size={15} /> Import</button>
           <input ref={fileInput} hidden multiple type="file" accept=".xml,.css" onChange={(event) => void importFiles(event.target.files)} />
-          <button className="export-button" onClick={() => void exportProject()}><PackageOpen size={15} /> Exporter</button>
+          <button className="export-button" onClick={() => void exportProject()}><PackageOpen size={15} /> Export</button>
         </div>
       </header>
 
       <section className="workspace">
         <aside className="left-rail">
-          <PanelTitle icon={<Plus size={14} />} label="COMPOSANTS" />
-          <div className="component-search"><Search size={14} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Rechercher" /></div>
+          <PanelTitle icon={<Plus size={14} />} label="COMPONENTS" />
+          <div className="component-search"><Search size={14} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search" /></div>
           <div className="palette">
             {palette.filter((item) => item.label.toLowerCase().includes(query.toLowerCase())).map(({ tag, label, icon: Icon }) => (
               <button key={tag} onClick={() => add(tag)}><Icon size={17} /><span>{label}</span><Plus size={12} /></button>
             ))}
           </div>
-          <PanelTitle icon={<Braces size={14} />} label="ARBRE DU DOCUMENT" />
+          <PanelTitle icon={<Braces size={14} />} label="DOCUMENT TREE" />
           <div className="tree">{parsed.root ? <TreeNode node={parsed.root} selectedId={selectedId} onSelect={setSelectedId} /> : <p className="error-copy">{parsed.error}</p>}</div>
-          <div className="library-hint"><WandSparkles size={16} /><div><b>Prêt pour Minecraft</b><span>XML + CSS, aucun loader imposé.</span></div></div>
+          <div className="library-hint"><WandSparkles size={16} /><div><b>Ready for Minecraft</b><span>XML + CSS, no loader lock-in.</span></div></div>
         </aside>
 
         <section className="stage-column">
@@ -159,43 +159,43 @@ export function App() {
           </div>
           {tab === 'design' ? (
             <div className="canvas-wrap">
-              <div className="canvas-label"><span>{canvasWidth} × {canvasHeight}</span><span>APERÇU INTERACTIF</span></div>
+              <div className="canvas-label"><span>{canvasWidth} × {canvasHeight}</span><span>INTERACTIVE PREVIEW</span></div>
               <div className="game-canvas" style={{ width: canvasWidth, height: canvasHeight, transform: `scale(${zoom})` }}>
-                {parsed.root ? <Preview root={parsed.root} css={project.css} selectedId={selectedId} zoom={zoom} onSelect={setSelectedId} onMove={moveNode} /> : <div className="xml-error"><Code2 size={28} /><b>Le XML ne peut pas être affiché</b><span>{parsed.error}</span></div>}
+                {parsed.root ? <Preview root={parsed.root} css={project.css} selectedId={selectedId} zoom={zoom} onSelect={setSelectedId} onMove={moveNode} /> : <div className="xml-error"><Code2 size={28} /><b>XML cannot be previewed</b><span>{parsed.error}</span></div>}
               </div>
             </div>
           ) : (
             <div className="code-workspace">
               <div className="code-filebar"><span>{tab === 'xml' ? 'screen.xml' : 'screen.css'}</span><span>{tab.toUpperCase()} • UTF-8</span></div>
-              <textarea spellCheck={false} value={tab === 'xml' ? project.xml : project.css} onChange={(e) => commit(tab === 'xml' ? { ...project, xml: e.target.value } : { ...project, css: e.target.value }, `${tab.toUpperCase()} modifié`)} />
+              <textarea spellCheck={false} value={tab === 'xml' ? project.xml : project.css} onChange={(e) => commit(tab === 'xml' ? { ...project, xml: e.target.value } : { ...project, css: e.target.value }, `${tab.toUpperCase()} edited`)} />
             </div>
           )}
-          <footer className="statusbar"><span><span className="status-check">✓</span> {status}</span><span>{parsed.error ? `Erreur : ${parsed.error}` : `${countNodes(parsed.root)} éléments • aucune dépendance loader`}</span></footer>
+          <footer className="statusbar"><span><span className="status-check">✓</span> {status}</span><span>{parsed.error ? `Error: ${parsed.error}` : `${countNodes(parsed.root)} elements • no loader dependency`}</span></footer>
         </section>
 
         <aside className="inspector">
           <PanelTitle icon={<MousePointer2 size={14} />} label="INSPECTEUR" />
           {selected ? <>
             <div className="selection-card"><span className="selection-icon">{selected.tag.slice(0, 2).toUpperCase()}</span><div><b>{selected.attributes.id || selected.tag}</b><span>&lt;{selected.tag}&gt;</span></div><button onClick={remove} title="Supprimer"><Trash2 size={15} /></button></div>
-            <InspectorGroup title="IDENTITÉ">
+            <InspectorGroup title="IDENTITY">
               <Field label="ID" value={selected.attributes.id || ''} onChange={(value) => update('id', value)} />
               <Field label="Classes" value={selected.attributes.class || ''} onChange={(value) => update('class', value)} />
               {selected.tag !== 'panel' && selected.tag !== 'screen' && <Field label="Texte" value={selected.text} onChange={(value) => update('$text', value)} />}
               {selected.tag === 'button' && <Field label="Action" value={selected.attributes['on-click'] || ''} onChange={(value) => update('on-click', value)} />}
             </InspectorGroup>
             <InspectorGroup title="DIMENSIONS">
-              <div className="drag-hint"><MousePointer2 size={13} /><span>Glissez l’élément dans l’aperçu pour le positionner.</span></div>
+              <div className="drag-hint"><MousePointer2 size={13} /><span>Drag the element in the preview to position it.</span></div>
               <div className="field-grid"><Field label="Position X" value={inlineValue(selected, 'left')} placeholder="auto" onChange={(v) => updateStyle('left', v)} /><Field label="Position Y" value={inlineValue(selected, 'top')} placeholder="auto" onChange={(v) => updateStyle('top', v)} /></div>
-              <div className="field-grid"><Field label="Largeur" value={inlineValue(selected, 'width')} placeholder="auto" onChange={(v) => updateStyle('width', v)} /><Field label="Hauteur" value={inlineValue(selected, 'height')} placeholder="auto" onChange={(v) => updateStyle('height', v)} /></div>
-              <div className="field-grid"><Field label="Espacement" value={inlineValue(selected, 'gap')} placeholder="0" onChange={(v) => updateStyle('gap', v)} /><Field label="Marge int." value={inlineValue(selected, 'padding')} placeholder="0" onChange={(v) => updateStyle('padding', v)} /></div>
+              <div className="field-grid"><Field label="Width" value={inlineValue(selected, 'width')} placeholder="auto" onChange={(v) => updateStyle('width', v)} /><Field label="Height" value={inlineValue(selected, 'height')} placeholder="auto" onChange={(v) => updateStyle('height', v)} /></div>
+              <div className="field-grid"><Field label="Gap" value={inlineValue(selected, 'gap')} placeholder="0" onChange={(v) => updateStyle('gap', v)} /><Field label="Padding" value={inlineValue(selected, 'padding')} placeholder="0" onChange={(v) => updateStyle('padding', v)} /></div>
             </InspectorGroup>
-            <InspectorGroup title="APPARENCE">
-              <Field label="Fond" value={inlineValue(selected, 'background')} placeholder="CSS / var(...)" onChange={(v) => updateStyle('background', v)} />
-              <Field label="Ombre" value={inlineValue(selected, 'box-shadow')} placeholder="0 8 24 #00000080" onChange={(v) => updateStyle('box-shadow', v)} />
-              <Field label="Couleur" value={inlineValue(selected, 'color')} placeholder="héritée" onChange={(v) => updateStyle('color', v)} />
-              <div className="field-grid"><Field label="Rayon" value={inlineValue(selected, 'border-radius')} placeholder="0" onChange={(v) => updateStyle('border-radius', v)} /><Field label="Opacité" value={inlineValue(selected, 'opacity')} placeholder="1" onChange={(v) => updateStyle('opacity', v)} /></div>
+            <InspectorGroup title="APPEARANCE">
+              <Field label="Background" value={inlineValue(selected, 'background')} placeholder="CSS / var(...)" onChange={(v) => updateStyle('background', v)} />
+              <Field label="Shadow" value={inlineValue(selected, 'box-shadow')} placeholder="0 8 24 #00000080" onChange={(v) => updateStyle('box-shadow', v)} />
+              <Field label="Color" value={inlineValue(selected, 'color')} placeholder="inherited" onChange={(v) => updateStyle('color', v)} />
+              <div className="field-grid"><Field label="Radius" value={inlineValue(selected, 'border-radius')} placeholder="0" onChange={(v) => updateStyle('border-radius', v)} /><Field label="Opacity" value={inlineValue(selected, 'opacity')} placeholder="1" onChange={(v) => updateStyle('opacity', v)} /></div>
             </InspectorGroup>
-          </> : <div className="empty-inspector"><MousePointer2 size={24} /><b>Sélectionnez un élément</b><span>Cliquez dans l’aperçu ou dans l’arbre.</span></div>}
+          </> : <div className="empty-inspector"><MousePointer2 size={24} /><b>Select an element</b><span>Click an element in the preview or tree.</span></div>}
         </aside>
       </section>
     </main>
