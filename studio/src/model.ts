@@ -10,7 +10,7 @@ const parserError = 'parsererror';
 export function parseUi(xml: string): UiElement {
   const document = new DOMParser().parseFromString(xml, 'application/xml');
   const error = document.querySelector(parserError);
-  if (error) throw new Error(error.textContent?.split('\n')[0] || 'XML invalide');
+  if (error) throw new Error(error.textContent?.split('\n')[0] || 'Invalid XML');
   return fromElement(document.documentElement);
 }
 
@@ -32,7 +32,7 @@ function fromElement(element: Element): UiElement {
 
 function mutate(xml: string, mutation: (document: XMLDocument) => void): string {
   const document = new DOMParser().parseFromString(xml, 'application/xml');
-  if (document.querySelector(parserError)) throw new Error('Impossible de modifier un XML invalide');
+  if (document.querySelector(parserError)) throw new Error('Cannot edit invalid XML');
   mutation(document);
   return formatXml(new XMLSerializer().serializeToString(document));
 }
@@ -54,8 +54,8 @@ export function addNode(xml: string, parentId: string | null, tag: string): { xm
     if (!parent) return;
     const child = document.createElement(tag);
     child.setAttribute('id', id);
-    if (tag === 'label') child.textContent = 'Nouveau texte';
-    if (tag === 'button') { child.textContent = 'Bouton'; child.setAttribute('on-click', 'action'); }
+    if (tag === 'label') child.textContent = 'New text';
+    if (tag === 'button') { child.textContent = 'Button'; child.setAttribute('on-click', 'action'); }
     if (tag === 'image') child.setAttribute('src', 'minecraft:textures/item/diamond.png');
     if (tag === 'progress') { child.setAttribute('value', '0.65'); child.setAttribute('max', '1'); }
     parent.appendChild(child);

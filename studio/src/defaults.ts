@@ -33,9 +33,9 @@ export const defaultXml = `<screen id="server-screen" class="app-shell">
     </panel>
     <panel class="section-head"><label class="section-title">Online servers</label><label class="muted">3 available</label></panel>
     <panel class="server-grid">
-      <panel class="server-card"><badge>AN</badge><label class="card-title">Anarchy</label><label class="muted">142 joueurs</label></panel>
+      <panel class="server-card"><badge>AN</badge><label class="card-title">Anarchy</label><label class="muted">142 players</label></panel>
       <panel class="server-card"><badge>CR</badge><label class="card-title">Creative</label><label class="muted">38 players</label></panel>
-      <panel class="server-card"><badge>SK</badge><label class="card-title">Skyblock</label><label class="muted">89 joueurs</label></panel>
+      <panel class="server-card"><badge>SK</badge><label class="card-title">Skyblock</label><label class="muted">89 players</label></panel>
     </panel>
   </panel>
 </screen>`;

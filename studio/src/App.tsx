@@ -36,7 +36,7 @@ export function App() {
 
   const parsed = useMemo(() => {
     try { return { root: parseUi(project.xml), error: null }; }
-    catch (error) { return { root: null, error: error instanceof Error ? error.message : 'XML invalide' }; }
+    catch (error) { return { root: null, error: error instanceof Error ? error.message : 'Invalid XML' }; }
   }, [project.xml]);
   const selected = parsed.root ? findNode(parsed.root, selectedId) : null;
 
@@ -174,13 +174,13 @@ export function App() {
         </section>
 
         <aside className="inspector">
-          <PanelTitle icon={<MousePointer2 size={14} />} label="INSPECTEUR" />
+          <PanelTitle icon={<MousePointer2 size={14} />} label="INSPECTOR" />
           {selected ? <>
-            <div className="selection-card"><span className="selection-icon">{selected.tag.slice(0, 2).toUpperCase()}</span><div><b>{selected.attributes.id || selected.tag}</b><span>&lt;{selected.tag}&gt;</span></div><button onClick={remove} title="Supprimer"><Trash2 size={15} /></button></div>
+            <div className="selection-card"><span className="selection-icon">{selected.tag.slice(0, 2).toUpperCase()}</span><div><b>{selected.attributes.id || selected.tag}</b><span>&lt;{selected.tag}&gt;</span></div><button onClick={remove} title="Delete"><Trash2 size={15} /></button></div>
             <InspectorGroup title="IDENTITY">
               <Field label="ID" value={selected.attributes.id || ''} onChange={(value) => update('id', value)} />
               <Field label="Classes" value={selected.attributes.class || ''} onChange={(value) => update('class', value)} />
-              {selected.tag !== 'panel' && selected.tag !== 'screen' && <Field label="Texte" value={selected.text} onChange={(value) => update('$text', value)} />}
+              {selected.tag !== 'panel' && selected.tag !== 'screen' && <Field label="Text" value={selected.text} onChange={(value) => update('$text', value)} />}
               {selected.tag === 'button' && <Field label="Action" value={selected.attributes['on-click'] || ''} onChange={(value) => update('on-click', value)} />}
             </InspectorGroup>
             <InspectorGroup title="DIMENSIONS">
