@@ -13,8 +13,8 @@ export const defaultXml = `<screen id="server-screen" class="app-shell">
     <button class="nav-item">Direct connection</button>
     <spacer flex="1" />
     <panel class="profile">
-      <avatar>LV</avatar>
-      <panel><label>Loevan</label><label class="muted">Ready to play</label></panel>
+      <avatar>LO</avatar>
+      <panel><label>Lolo</label><label class="muted">Ready to play</label></panel>
     </panel>
   </panel>
   <panel id="content" class="content">
