@@ -35,13 +35,19 @@ dependencies {
 }
 
 sourceSets.main.java.srcDir('../forge-mod/src/main/java')
-def eventBasedInputVersions = ['1.21.9', '1.21.10']
+def busGroupInputVersions = ['1.21.6', '1.21.7', '1.21.8']
+def eventBasedInputVersions = ['1.21.9']
+def eventBusInputVersions = ['1.21.10']
 def renamedIdentifierVersions = ['1.21.11']
 def inputSourceDir = renamedIdentifierVersions.contains(project.minecraft_version.toString())
         ? '../forge-mod/src/input-identifier/java'
-        : (eventBasedInputVersions.contains(project.minecraft_version.toString())
-            ? '../forge-mod/src/input-events/java'
-            : '../forge-mod/src/input-legacy/java')
+        : (busGroupInputVersions.contains(project.minecraft_version.toString())
+            ? '../forge-mod/src/input-busgroup/java'
+            : (eventBusInputVersions.contains(project.minecraft_version.toString())
+                ? '../forge-mod/src/input-eventbus/java'
+                : (eventBasedInputVersions.contains(project.minecraft_version.toString())
+                    ? '../forge-mod/src/input-events/java'
+                    : '../forge-mod/src/input-legacy/java')))
 sourceSets.main.java.srcDir(inputSourceDir)
 sourceSets.main.java.srcDir('../common-support/src/main/java')
 sourceSets.main.resources.srcDir('../forge-mod/src/main/resources')
