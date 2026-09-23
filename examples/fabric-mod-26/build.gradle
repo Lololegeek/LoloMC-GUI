@@ -1,0 +1,48 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.18.2'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
+
+repositories { mavenCentral() }
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
+}
+
+sourceSets.main.java.srcDir('../minecraft-26-common/src/main/java')
+sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
+
+processResources {
+    inputs.properties([version: project.version, minecraft_version: project.minecraft_version,
+                       loader_version: project.loader_version, fabric_version: project.fabric_version])
+    filesMatching('fabric.mod.json') {
+        expand(version: project.version, minecraft_version: project.minecraft_version,
+               loader_version: project.loader_version, fabric_version: project.fabric_version)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+    options.encoding = 'UTF-8'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+    withSourcesJar()
+}
+
+jar { from('../../LICENSE') { rename { "${it}_${project.base.archivesName.get()}" } } }
+
+publishing {
+    publications { mavenJava(MavenPublication) { from components.java } }
+}

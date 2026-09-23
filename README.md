@@ -12,13 +12,13 @@ LoloMC GUI is a loader-neutral Java runtime plus **LoloMC GUI Studio**, a visual
 - Premium portable rendering: linear gradients, shadows, rounded corners, opacity, RGBA colors, aligned/shadowed text, and progress bars.
 - Click actions, named callbacks, focus, text input, and backspace handling.
 - Rendering backend independent from Fabric, Quilt, Forge, NeoForge, and mappings.
-- Version-pinned Fabric, Forge, and NeoForge client build profiles across the Minecraft 1.20.1–1.21.11 release lines; Minecraft 26.x uses a separate adapter family.
+- Version-pinned Fabric, Forge, and NeoForge client build profiles from Minecraft 1.20.1 through the 1.21.x family, with separate Java 25 adapters for unobfuscated Minecraft 26.x.
 - Studio with interactive preview, palette, document tree, inspector, XML/CSS editing, undo/redo, import, drag positioning, and ZIP export.
 - Java 8 bytecode with no runtime dependency.
 
 ## 60-second setup
 
-Requirements: JDK 21 (to build Java 8 bytecode) and Node.js 20+.
+Requirements: JDK 21, JDK 25 for Minecraft 26 examples, and Node.js 20+.
 
 ```powershell
 npm install
@@ -70,7 +70,7 @@ docs/          loader integration, compatibility, and XML/CSS reference
 
 Start with the [integration guide](docs/integration.md), read the [XML/CSS reference](docs/xml-css-reference.md), then check the [compatibility matrix](docs/compatibility.md). The `server-selector` example can be imported directly into Studio.
 
-To see the library inside a real Minecraft GUI, open one of the loader examples, then run its Gradle build. The root scripts are `npm run build:example-fabric`, `npm run build:example-forge`, `npm run build:example-neoforge`, or `npm run build:loader-matrix`. Press **O** in the development client to open the XML/CSS screen.
+To see the library inside a real Minecraft GUI, open one of the loader examples, then run its Gradle build. The root scripts include `npm run build:example-fabric`, `npm run build:example-forge`, `npm run build:example-forge-fg7`, `npm run build:example-neoforge`, and the corresponding `*-26` profiles. `npm run build:loader-matrix` runs all seven default profiles. Press **O** in a development client to open the XML/CSS screen.
 
 ## Compatibility philosophy
 

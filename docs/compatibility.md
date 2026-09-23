@@ -13,7 +13,7 @@
 
 Compatibility does not mean that one mod JAR targeting obfuscated Minecraft classes will run on every version. LoloMC GUI makes the **document, styles, layout, and interactions** universal; the mod only supplies six rendering primitives and forwards its screen events.
 
-The checked-in examples and CI matrix target exact Minecraft and loader combinations from 1.20.1 through 1.21.11 where upstream development artifacts exist. See [`version-matrix.md`](version-matrix.md) for missing upstream combinations and the separate 26.x adapter family.
+The checked-in examples and CI matrices target exact Minecraft and loader combinations from 1.20.1 through 1.21.11, then use separate Java 25 adapters for Minecraft 26.x. Missing upstream loader coordinates are not claimed as supported. See [`version-matrix.md`](version-matrix.md) for the exact build profiles and current gaps.
 
 ## Recommended adapter families
 

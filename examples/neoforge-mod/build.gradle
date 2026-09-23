@@ -9,6 +9,8 @@ group = project.maven_group
 
 base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
 
+sourceSets.main.java.srcDir('../common-support/src/main/java')
+
 repositories { mavenCentral() }
 
 sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
@@ -25,6 +27,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
+    toolchain.languageVersion = JavaLanguageVersion.of(project.java_version.toInteger())
     sourceCompatibility = JavaVersion.toVersion(project.java_version)
     targetCompatibility = JavaVersion.toVersion(project.java_version)
     withSourcesJar()

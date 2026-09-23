@@ -1,0 +1,61 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+    withSourcesJar()
+}
+
+neoForge {
+    version = project.neoforge_version
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'lolomc_gui_example'
+        }
+    }
+    mods {
+        lolomc_gui_example { sourceSet sourceSets.main }
+    }
+}
+
+repositories { mavenCentral() }
+
+dependencies {
+    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
+}
+
+sourceSets.main.java.srcDir('../minecraft-26-common/src/main/java')
+sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
+
+processResources {
+    inputs.properties([version: project.version, minecraft_version: project.minecraft_version,
+                       neoforge_version_range: project.neoforge_version_range])
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand(version: project.version, minecraft_version: project.minecraft_version,
+               neoforge_version_range: project.neoforge_version_range)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    from('../../LICENSE') { rename { "${it}_${project.base.archivesName.get()}" } }
+}
+
+publishing {
+    publications { mavenJava(MavenPublication) { from components.java } }
+}

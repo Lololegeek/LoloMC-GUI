@@ -1,0 +1,114 @@
+name: Build Minecraft 26.x loader artifacts
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+jobs:
+  build-loader:
+    name: ${{ matrix.loader }} / Minecraft ${{ matrix.minecraft }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - loader: fabric
+            minecraft: '26.1'
+            java: 25
+            path: examples/fabric-mod-26
+            properties: '-Pminecraft_version=26.1 -Ploader_version=0.19.5 -Pfabric_version=0.145.1+26.1'
+          - loader: fabric
+            minecraft: 26.1.1
+            java: 25
+            path: examples/fabric-mod-26
+            properties: '-Pminecraft_version=26.1.1 -Ploader_version=0.19.5 -Pfabric_version=0.145.4+26.1.1'
+          - loader: fabric
+            minecraft: 26.1.2
+            java: 25
+            path: examples/fabric-mod-26
+            properties: '-Pminecraft_version=26.1.2 -Ploader_version=0.19.5 -Pfabric_version=0.155.3+26.1.2'
+          - loader: fabric
+            minecraft: '26.2'
+            java: 25
+            path: examples/fabric-mod-26
+            properties: '-Pminecraft_version=26.2 -Ploader_version=0.19.5 -Pfabric_version=0.161.0+26.2'
+          - loader: fabric
+            minecraft: '26.3'
+            java: 25
+            path: examples/fabric-mod-26
+            properties: '-Pminecraft_version=26.3 -Ploader_version=0.19.5 -Pfabric_version=0.161.0+26.3'
+          - loader: forge
+            minecraft: '26.1'
+            java: 25
+            path: examples/forge-mod-26
+            properties: '-Pminecraft_version=26.1 -Pforge_version=62.0.9'
+          - loader: forge
+            minecraft: 26.1.1
+            java: 25
+            path: examples/forge-mod-26
+            properties: '-Pminecraft_version=26.1.1 -Pforge_version=63.0.2'
+          - loader: forge
+            minecraft: 26.1.2
+            java: 25
+            path: examples/forge-mod-26
+            properties: '-Pminecraft_version=26.1.2 -Pforge_version=64.1.3'
+          - loader: forge
+            minecraft: '26.2'
+            java: 25
+            path: examples/forge-mod-26
+            properties: '-Pminecraft_version=26.2 -Pforge_version=65.1.3'
+          - loader: forge
+            minecraft: '26.3'
+            java: 25
+            path: examples/forge-mod-26
+            properties: '-Pminecraft_version=26.3 -Pforge_version=66.0.3'
+          - loader: neoforge
+            minecraft: '26.1'
+            java: 25
+            path: examples/neoforge-mod-26
+            properties: '-Pminecraft_version=26.1 -Pneoforge_version=26.1.0.19-beta'
+          - loader: neoforge
+            minecraft: 26.1.1
+            java: 25
+            path: examples/neoforge-mod-26
+            properties: '-Pminecraft_version=26.1.1 -Pneoforge_version=26.1.1.15-beta'
+          - loader: neoforge
+            minecraft: 26.1.2
+            java: 25
+            path: examples/neoforge-mod-26
+            properties: '-Pminecraft_version=26.1.2 -Pneoforge_version=26.1.2.109'
+          - loader: neoforge
+            minecraft: '26.2'
+            java: 25
+            path: examples/neoforge-mod-26
+            properties: '-Pminecraft_version=26.2 -Pneoforge_version=26.2.0.88'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make Gradle wrapper executable
+        working-directory: ${{ matrix.path }}
+        run: chmod +x gradlew
+
+      - name: Build ${{ matrix.loader }} example
+        working-directory: ${{ matrix.path }}
+        run: ./gradlew build --no-daemon ${{ matrix.properties }}
+
+      - name: Upload ${{ matrix.loader }} artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lolomc-gui-${{ matrix.loader }}-${{ matrix.minecraft }}
+          path: ${{ matrix.path }}/build/libs/*.jar
+          if-no-files-found: error

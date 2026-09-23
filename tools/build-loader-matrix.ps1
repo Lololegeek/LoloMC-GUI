@@ -3,7 +3,11 @@ param([switch]$ContinueOnError)
 $projects = @(
     'examples/fabric-mod',
     'examples/forge-mod',
-    'examples/neoforge-mod'
+    'examples/forge-mod-fg7',
+    'examples/neoforge-mod',
+    'examples/fabric-mod-26',
+    'examples/forge-mod-26',
+    'examples/neoforge-mod-26'
 )
 $failures = @()
 

@@ -1,0 +1,15 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'lolomc-gui-fabric-26-example'
+
+includeBuild('../../runtime-java') {
+    dependencySubstitution {
+        substitute module('dev.lolomc:lolomc-gui') using project(':')
+    }
+}

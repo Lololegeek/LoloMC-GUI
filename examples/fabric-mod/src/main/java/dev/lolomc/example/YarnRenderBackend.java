@@ -76,8 +76,7 @@ final class YarnRenderBackend implements RenderBackend {
     @Override public void textBox(String text, float x, float y, float width, int argb, float size, String align,
                                   float letterSpacing, int shadowArgb, float shadowX, float shadowY) {
         float scale = size / 9.0f;
-        graphics.getMatrices().push();
-        graphics.getMatrices().scale(scale, scale, 1.0f);
+        MatrixTransformCompat.pushScale(graphics.getMatrices(), scale);
         float logicalTextWidth = font.getWidth(text) * scale + Math.max(0, text.length() - 1) * letterSpacing;
         float drawX = x;
         if (width > 0 && "center".equals(align)) drawX = x + (width - logicalTextWidth) / 2f;
@@ -85,7 +84,7 @@ final class YarnRenderBackend implements RenderBackend {
         drawX = Math.max(x, drawX);
         if (shadowArgb != 0) drawTextLine(text, (drawX + shadowX) / scale, (y + shadowY) / scale, shadowArgb, letterSpacing / scale);
         drawTextLine(text, drawX / scale, y / scale, argb, letterSpacing / scale);
-        graphics.getMatrices().pop();
+        MatrixTransformCompat.pop(graphics.getMatrices());
     }
 
     @Override public void image(String resource, float x, float y, float width, float height, int tint) {

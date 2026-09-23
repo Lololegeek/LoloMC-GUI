@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[7.0.17,8.0)'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+minecraft {
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            mods { lolomc_gui_example { source sourceSets.main } }
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+dependencies {
+    implementation minecraft.dependency("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
+    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
+}
+
+sourceSets.main.java.srcDir('../minecraft-26-common/src/main/java')
+sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
+
+processResources {
+    def forgeMajorVersion = project.forge_version.toString().tokenize('.')[0]
+    def forgeVersionRange = "[${forgeMajorVersion},)"
+    inputs.properties([version: project.version, minecraft_version: project.minecraft_version,
+                       forge_version_range: forgeVersionRange])
+    filesMatching('META-INF/mods.toml') {
+        expand(version: project.version, minecraft_version: project.minecraft_version,
+               forge_version_range: forgeVersionRange)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    archiveClassifier = ''
+    from('../../LICENSE') { rename { "${it}_${project.base.archivesName.get()}" } }
+}
+
+publishing {
+    publications { mavenJava(MavenPublication) { from components.java } }
+}

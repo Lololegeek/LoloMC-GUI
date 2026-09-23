@@ -106,22 +106,22 @@ jobs:
             properties: '-Pminecraft_version=1.21.11 -Pyarn_mappings=1.21.11+build.6 -Ploader_version=0.19.5 -Pfabric_version=0.141.6+1.21.11 -Pjava_version=21'
           - loader: forge
             minecraft: 1.20.1
-            java: 21
+            java: 17
             path: examples/forge-mod
             properties: '-Pminecraft_version=1.20.1 -Pforge_version=47.4.23 -Pjava_version=17'
           - loader: forge
             minecraft: 1.20.2
-            java: 21
+            java: 17
             path: examples/forge-mod
             properties: '-Pminecraft_version=1.20.2 -Pforge_version=48.1.0 -Pjava_version=17'
           - loader: forge
             minecraft: 1.20.3
-            java: 21
+            java: 17
             path: examples/forge-mod
             properties: '-Pminecraft_version=1.20.3 -Pforge_version=49.0.2 -Pjava_version=17'
           - loader: forge
             minecraft: 1.20.4
-            java: 21
+            java: 17
             path: examples/forge-mod
             properties: '-Pminecraft_version=1.20.4 -Pforge_version=49.2.9 -Pjava_version=17'
           - loader: forge
@@ -142,66 +142,66 @@ jobs:
           - loader: forge
             minecraft: 1.21.3
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.3 -Pforge_version=53.1.12 -Pjava_version=21'
           - loader: forge
             minecraft: 1.21.4
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.4 -Pforge_version=54.1.18 -Pjava_version=21'
           - loader: forge
             minecraft: 1.21.5
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.5 -Pforge_version=55.1.13 -Pjava_version=21'
           - loader: forge
             minecraft: 1.21.6
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.6 -Pforge_version=56.0.9 -Pjava_version=21'
           - loader: forge
             minecraft: 1.21.7
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.7 -Pforge_version=57.0.3 -Pjava_version=21'
           - loader: forge
             minecraft: 1.21.8
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.8 -Pforge_version=58.1.22 -Pjava_version=21'
           - loader: forge
             minecraft: 1.21.9
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.9 -Pforge_version=59.0.5 -Pjava_version=21'
           - loader: forge
             minecraft: 1.21.10
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.10 -Pforge_version=60.1.15 -Pjava_version=21'
           - loader: forge
             minecraft: 1.21.11
             java: 21
-            path: examples/forge-mod
+            path: examples/forge-mod-fg7
             properties: '-Pminecraft_version=1.21.11 -Pforge_version=61.2.1 -Pjava_version=21'
           - loader: neoforge
             minecraft: 1.20.1
-            java: 21
+            java: 17
             path: examples/neoforge-mod
             properties: '-Pminecraft_version=1.20.1 -Pneoforge_artifact=forge -Pneoforge_version=1.20.1-47.1.106 -Pneoforge_version_range=47.1 -Pjava_version=17'
           - loader: neoforge
             minecraft: 1.20.2
-            java: 21
+            java: 17
             path: examples/neoforge-mod
             properties: '-Pminecraft_version=1.20.2 -Pneoforge_version=20.2.93 -Pneoforge_version_range=20.2 -Pjava_version=17'
           - loader: neoforge
             minecraft: 1.20.3
-            java: 21
+            java: 17
             path: examples/neoforge-mod
             properties: '-Pminecraft_version=1.20.3 -Pneoforge_version=20.3.8-beta -Pneoforge_version_range=20.3 -Pjava_version=17'
           - loader: neoforge
             minecraft: 1.20.4
-            java: 21
+            java: 17
             path: examples/neoforge-mod
             properties: '-Pminecraft_version=1.20.4 -Pneoforge_version=20.4.251 -Pneoforge_version_range=20.4 -Pjava_version=17'
           - loader: neoforge

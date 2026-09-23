@@ -8,6 +8,8 @@ group = project.maven_group
 
 base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
 
+sourceSets.main.java.srcDir('../common-support/src/main/java')
+
 repositories { mavenCentral() }
 
 minecraft {

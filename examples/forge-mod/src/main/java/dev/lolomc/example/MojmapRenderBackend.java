@@ -16,10 +16,9 @@ final class MojmapRenderBackend implements RenderBackend {
 
     @Override public void text(String text, float x, float y, int argb, float size, String align) {
         float scale = size / 9.0f;
-        graphics.pose().pushPose();
-        graphics.pose().scale(scale, scale, 1.0f);
+        MatrixTransformCompat.pushScale(graphics.pose(), scale);
         graphics.drawString(font, text, (int) (x / scale), (int) (y / scale), argb, false);
-        graphics.pose().popPose();
+        MatrixTransformCompat.pop(graphics.pose());
     }
 
     @Override public void image(String resource, float x, float y, float width, float height, int tint) {
