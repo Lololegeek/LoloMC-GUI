@@ -84,6 +84,11 @@ jobs:
             java: 25
             path: examples/neoforge-mod-26
             properties: '-Pminecraft_version=26.2 -Pneoforge_version=26.2.0.88'
+          - loader: neoforge
+            minecraft: '26.3'
+            java: 25
+            path: examples/neoforge-mod-26
+            properties: '-Pminecraft_version=26.3 -Pneoforge_version=26.3.0.13-beta'
 
     steps:
       - name: Checkout

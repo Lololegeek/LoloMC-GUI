@@ -24,9 +24,9 @@ Minecraft 26 is unobfuscated and requires Java 25. Fabric uses Loom's non-remapp
 |---|---|---:|---|
 | Fabric | 26.1, 26.1.1, 26.1.2, 26.2, 26.3 | 25 | Fabric Loom, unobfuscated Mojang names |
 | Forge | 26.1, 26.1.1, 26.1.2, 26.2, 26.3 | 25 | ForgeGradle 7, unobfuscated Mojang names |
-| NeoForge | 26.1 (beta), 26.1.1 (beta), 26.1.2, 26.2 | 25 | ModDevGradle, unobfuscated Mojang names |
+| NeoForge | 26.1 (beta), 26.1.1 (beta), 26.1.2, 26.2, 26.3 (beta) | 25 | ModDevGradle, unobfuscated Mojang names |
 
-As of 2026-09-23, NeoForge's official Maven repository has no 26.3 development artifact, so there is no 26.3 NeoForge build row. NeoForge's 26.1 and 26.1.1 rows use the published beta loader builds; stable artifacts are available for 26.1.2 and 26.2. The exact pinned coordinates live in `.github/workflows/build-loaders-26.yml`.
+NeoForge's 26.1, 26.1.1, and 26.3 rows use published beta loader builds; stable artifacts are available for 26.1.2 and 26.2. The current 26.3 profile pins NeoForge `26.3.0.13-beta`; the exact coordinates live in `.github/workflows/build-loaders-26.yml`.
 
 ## Build
 
