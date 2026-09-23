@@ -10,6 +10,14 @@ group = project.maven_group
 base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
 
 sourceSets.main.java.srcDir('../common-support/src/main/java')
+def eventBasedInputVersions = ['1.21.9', '1.21.10']
+def renamedIdentifierVersions = ['1.21.11']
+def inputSourceDir = renamedIdentifierVersions.contains(project.minecraft_version.toString())
+        ? 'src/input-identifier/java'
+        : (eventBasedInputVersions.contains(project.minecraft_version.toString())
+            ? 'src/input-events/java'
+            : 'src/input-legacy/java')
+sourceSets.main.java.srcDir(inputSourceDir)
 
 repositories { mavenCentral() }
 
@@ -27,7 +35,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(project.java_version.toInteger())
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
     sourceCompatibility = JavaVersion.toVersion(project.java_version)
     targetCompatibility = JavaVersion.toVersion(project.java_version)
     withSourcesJar()

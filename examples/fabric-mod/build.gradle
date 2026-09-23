@@ -11,6 +11,10 @@ base {
 }
 
 sourceSets.main.java.srcDir('../common-support/src/main/java')
+def eventBasedInputVersions = ['1.21.9', '1.21.10', '1.21.11']
+sourceSets.main.java.srcDir(eventBasedInputVersions.contains(project.minecraft_version.toString())
+        ? 'src/input-events/java'
+        : 'src/input-legacy/java')
 
 repositories {
     maven { url = 'https://maven.fabricmc.net/' }

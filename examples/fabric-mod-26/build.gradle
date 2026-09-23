@@ -18,6 +18,7 @@ dependencies {
 }
 
 sourceSets.main.java.srcDir('../minecraft-26-common/src/main/java')
+sourceSets.main.java.srcDir('../common-support/src/main/java')
 sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
 
 processResources {

@@ -15,7 +15,7 @@ minecraft {
     mappings channel: 'official', version: project.minecraft_version
     runs {
         client {
-            workingDirectory project.file('run')
+            workingDir = project.file('run')
             property 'forge.logging.console.level', 'debug'
             mods { lolomc_gui_example { source sourceSets.main } }
         }
@@ -35,6 +35,14 @@ dependencies {
 }
 
 sourceSets.main.java.srcDir('../forge-mod/src/main/java')
+def eventBasedInputVersions = ['1.21.9', '1.21.10']
+def renamedIdentifierVersions = ['1.21.11']
+def inputSourceDir = renamedIdentifierVersions.contains(project.minecraft_version.toString())
+        ? '../forge-mod/src/input-identifier/java'
+        : (eventBasedInputVersions.contains(project.minecraft_version.toString())
+            ? '../forge-mod/src/input-events/java'
+            : '../forge-mod/src/input-legacy/java')
+sourceSets.main.java.srcDir(inputSourceDir)
 sourceSets.main.java.srcDir('../common-support/src/main/java')
 sourceSets.main.resources.srcDir('../forge-mod/src/main/resources')
 sourceSets.main.resources.srcDir('../fabric-mod/src/main/resources/assets')

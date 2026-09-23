@@ -26,11 +26,11 @@ final class LoloExampleScreen extends Screen {
 
     static LoloExampleScreen create(Minecraft client) {
         try {
-            InputStream xml = resource(client, LoloGuiForgeExample.resource("ui/screen.xml"));
-            String css = text(resource(client, LoloGuiForgeExample.resource("ui/screen.css")));
+            InputStream xml = resource(client, LoloGuiNeoForgeExample.resource("ui/screen.xml"));
+            String css = text(resource(client, LoloGuiNeoForgeExample.resource("ui/screen.css")));
             UiDocument document = LoloGui.load(xml, css);
             GuiSession session = LoloGui.session(document)
-                    .on("play", node -> { if (client.player != null) client.player.sendSystemMessage(Component.literal("LoloMC GUI: play")); })
+                    .on("play", node -> { })
                     .on("close", node -> client.setScreen(null));
             return new LoloExampleScreen(session);
         } catch (IOException error) {
@@ -49,11 +49,7 @@ final class LoloExampleScreen extends Screen {
     }
 
     @Override protected void init() { host.init(width, height); }
-
-    @Override public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-        host.render(new MojmapRenderBackend(graphics, font), mouseX, mouseY);
-    }
-
+    @Override public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) { host.render(new MojmapRenderBackend(graphics, font), mouseX, mouseY); }
     @Override public boolean mouseClicked(double x, double y, int button) { return host.mouseClicked(x, y, button) || super.mouseClicked(x, y, button); }
     @Override public boolean mouseReleased(double x, double y, int button) { return host.mouseReleased() || super.mouseReleased(x, y, button); }
     @Override public boolean charTyped(char chr, int modifiers) { return host.charTyped(chr) || super.charTyped(chr, modifiers); }

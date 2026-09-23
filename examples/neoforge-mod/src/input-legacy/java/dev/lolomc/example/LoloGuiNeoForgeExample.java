@@ -1,5 +1,7 @@
 package dev.lolomc.example;
 
+// Legacy input and identifier signatures used through Minecraft 1.21.8.
+
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;

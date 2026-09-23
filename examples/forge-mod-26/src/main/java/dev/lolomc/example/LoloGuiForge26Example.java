@@ -32,6 +32,6 @@ public final class LoloGuiForge26Example {
     private static void tick(TickEvent.ClientTickEvent.Post event) {
         if (openKey == null) return;
         Minecraft client = Minecraft.getInstance();
-        while (openKey.consumeClick()) client.gui.setScreen(LoloExampleScreen.create(client));
+        while (openKey.consumeClick()) client.setScreenAndShow(LoloExampleScreen.create(client));
     }
 }

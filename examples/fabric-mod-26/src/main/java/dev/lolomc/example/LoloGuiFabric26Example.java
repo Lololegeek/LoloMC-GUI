@@ -20,7 +20,7 @@ public final class LoloGuiFabric26Example implements ClientModInitializer {
         openKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.lolomc_gui_example.open", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, category));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (openKey.consumeClick()) client.gui.setScreen(LoloExampleScreen.create(client));
+            while (openKey.consumeClick()) client.setScreenAndShow(LoloExampleScreen.create(client));
         });
     }
 }
