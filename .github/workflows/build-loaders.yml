@@ -15,9 +15,15 @@ jobs:
       matrix:
         include:
           - loader: fabric
+            minecraft: 1.20.1
+            java: 17
+            path: examples/fabric-mod
+            properties: -Pminecraft_version=1.20.1 -Pyarn_mappings=1.20.1+build.10 -Ploader_version=0.14.22 -Pfabric_version=0.92.12+1.20.1 -Pjava_version=17
+          - loader: fabric
             minecraft: 1.21.1
             java: 21
             path: examples/fabric-mod
+            properties: ''
           - loader: forge
             minecraft: 1.20.1
             java: 17
@@ -46,7 +52,7 @@ jobs:
 
       - name: Build ${{ matrix.loader }} example
         working-directory: ${{ matrix.path }}
-        run: ./gradlew build --no-daemon
+        run: ./gradlew build --no-daemon ${{ matrix.properties }}
 
       - name: Upload ${{ matrix.loader }} artifact
         uses: actions/upload-artifact@v4

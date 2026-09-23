@@ -21,6 +21,6 @@ public final class LoloGuiExampleClient implements ClientModInitializer {
     }
 
     static Identifier resource(String path) {
-        return Identifier.of("lolomc_gui_example", path);
+        return Identifier.tryParse("lolomc_gui_example:" + path);
     }
 }

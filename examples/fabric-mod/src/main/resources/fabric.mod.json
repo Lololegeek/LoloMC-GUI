@@ -10,9 +10,9 @@
   "environment": "client",
   "entrypoints": { "client": ["dev.lolomc.example.LoloGuiExampleClient"] },
   "depends": {
-    "fabricloader": ">=0.16.5",
-    "minecraft": "~1.21.1",
-    "java": ">=21",
-    "fabric-api": ">=0.107.0"
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=${java_version}",
+    "fabric-api": ">=${fabric_version}"
   }
 }
