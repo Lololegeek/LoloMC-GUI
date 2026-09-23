@@ -1,31 +1,25 @@
 # Minecraft loader and version matrix
 
-LoloMC GUI keeps its XML, CSS, layout, input, and state runtime independent from Minecraft. Each loader and Minecraft version line gets its own thin client adapter because mappings and rendering APIs are not binary-compatible across versions.
+LoloMC GUI's XML, CSS, layout, input, and state runtime is loader-neutral. The Minecraft screen and rendering adapter is compiled for an exact game version and loader family; a single Minecraft-dependent JAR is not compatible with every release.
 
-## Current example projects
+## Minecraft 1.20.1–1.21.11
 
-| Loader | Baseline | Mapping/API | Java | Project |
-|---|---:|---|---:|---|
-| Fabric | 1.21.1 | Yarn / `DrawContext` | 21 | `examples/fabric-mod` |
-| Forge | 1.20.1 | Mojang mappings / `GuiGraphics` | 17 | `examples/forge-mod` |
-| NeoForge | 1.21.1 | Mojang mappings / `GuiGraphics` | 21 | `examples/neoforge-mod` |
+The GitHub Actions matrix builds a separate client example for every upstream release line where that loader publishes a compatible development artifact:
 
-## Version-line policy from 1.20 onward
+| Loader | Minecraft release lines | Java bytecode | Mapping family |
+|---|---|---:|---|
+| Fabric | 1.20.1–1.20.6, 1.21–1.21.11 | 17 through 1.20.4; 21 from 1.20.5 | Yarn |
+| Forge | 1.20.1–1.20.4, 1.20.6, 1.21, 1.21.1, 1.21.3–1.21.11 | 17 through 1.20.4; 21 from 1.20.6 | Mojang |
+| NeoForge | 1.20.1–1.20.6, 1.21–1.21.11 | 17 through 1.20.4; 21 from 1.20.5 | Mojang |
 
-The release pipeline treats these as separate compatibility lines:
+Forge does not publish Minecraft development coordinates for 1.20.5 or 1.21.2, so those two Forge artifacts cannot be built. The NeoForge 1.20.1 example uses the legacy `net.neoforged:forge` coordinate; NeoForge recommends Forge for that release. The NeoForge profiles pin the exact published loader build, including upstream beta builds where no stable build exists.
 
-- Fabric: 1.20.1, 1.20.4, 1.20.6, and each 1.21.x line that changes mappings or loader APIs.
-- Forge: 1.20.1, 1.20.2, 1.20.4, 1.20.6, and each 1.21.x line that changes ForgeGradle or client APIs.
-- NeoForge: 1.20.2, 1.20.4, 1.20.6, and each 1.21.x line supported by the NeoForge userdev plugin.
+Every example artifact embeds the targeted game release in its filename and declares that exact Minecraft version in mod metadata. The source matrix and CI results are the authority for what has compiled; rows are not publication claims by themselves.
 
-Each published artifact must declare its exact Minecraft version range, loader, Java level, and dependency versions. A single JAR must not claim compatibility with every version from 1.20 onward: `DrawContext`, `GuiGraphics`, key events, resource APIs, mappings, and Java requirements change between lines.
+## Minecraft 26.1 and newer
 
-## Building the examples
+The 26.x family uses a separate adapter and build profile. Minecraft is now unobfuscated, Fabric no longer provides Yarn mappings, Java 25 is required, and GUI submission changed from `GuiGraphics`/`DrawContext` rendering to `GuiGraphicsExtractor` plus `extractRenderState`. These are source and build-pipeline changes, not a safe version-range bump. Do not select 26.x on a 1.20–1.21 artifact.
 
-Build all three checked-in baselines with:
+## Build
 
-```powershell
-npm run build:loader-matrix
-```
-
-To add another version line, duplicate the loader's Gradle profile, update its Minecraft/loader/mapping versions, and run the matrix against that exact game line before uploading it to Modrinth. The shared XML/CSS files do not change.
+Run an individual baseline locally with `npm run build:example-fabric`, `npm run build:example-forge`, or `npm run build:example-neoforge`. The complete pinned version matrix runs in `.github/workflows/build-loaders.yml`; CI is used for the cross-version builds because Gradle cannot establish its loopback daemon connection in some Windows environments.

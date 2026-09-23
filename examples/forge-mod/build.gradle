@@ -6,7 +6,7 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
-base { archivesName = project.archives_base_name }
+base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
 
 repositories { mavenCentral() }
 
@@ -31,17 +31,20 @@ dependencies {
 sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
 
 processResources {
-    inputs.property 'version', project.version
-    filesMatching('META-INF/mods.toml') { expand 'version': project.version }
+    inputs.properties([version: project.version, minecraft_version: project.minecraft_version])
+    filesMatching('META-INF/mods.toml') {
+        expand(version: project.version, minecraft_version: project.minecraft_version)
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.release = 17
+    options.release = project.java_version.toInteger()
     options.encoding = 'UTF-8'
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+    sourceCompatibility = JavaVersion.toVersion(project.java_version)
+    targetCompatibility = JavaVersion.toVersion(project.java_version)
     withSourcesJar()
 }
 

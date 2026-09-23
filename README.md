@@ -12,6 +12,7 @@ LoloMC GUI is a loader-neutral Java runtime plus **LoloMC GUI Studio**, a visual
 - Premium portable rendering: linear gradients, shadows, rounded corners, opacity, RGBA colors, aligned/shadowed text, and progress bars.
 - Click actions, named callbacks, focus, text input, and backspace handling.
 - Rendering backend independent from Fabric, Quilt, Forge, NeoForge, and mappings.
+- Version-pinned Fabric, Forge, and NeoForge client build profiles across the Minecraft 1.20.1–1.21.11 release lines; Minecraft 26.x uses a separate adapter family.
 - Studio with interactive preview, palette, document tree, inspector, XML/CSS editing, undo/redo, import, drag positioning, and ZIP export.
 - Java 8 bytecode with no runtime dependency.
 

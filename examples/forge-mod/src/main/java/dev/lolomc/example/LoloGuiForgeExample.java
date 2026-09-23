@@ -42,6 +42,6 @@ public final class LoloGuiForgeExample {
     }
 
     static net.minecraft.resources.ResourceLocation resource(String path) {
-        return new net.minecraft.resources.ResourceLocation(MOD_ID, path);
+        return net.minecraft.resources.ResourceLocation.tryParse(MOD_ID + ":" + path);
     }
 }
