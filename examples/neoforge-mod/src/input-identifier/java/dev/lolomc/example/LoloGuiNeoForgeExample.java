@@ -21,7 +21,7 @@ public final class LoloGuiNeoForgeExample {
     public LoloGuiNeoForgeExample(IEventBus modEventBus) { modEventBus.addListener(this::registerKeys); }
 
     private void registerKeys(RegisterKeyMappingsEvent event) {
-        KeyMapping.Category category = KeyMapping.Category.register(Identifier.withNamespaceAndPath(MOD_ID, "example"));
+        KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "example"));
         openKey = new KeyMapping("key.lolomc_gui_example.open", InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_O, category);
         event.register(openKey);
@@ -36,5 +36,5 @@ public final class LoloGuiNeoForgeExample {
         }
     }
 
-    static Identifier resource(String path) { return Identifier.withNamespaceAndPath(MOD_ID, path); }
+    static Identifier resource(String path) { return Identifier.fromNamespaceAndPath(MOD_ID, path); }
 }

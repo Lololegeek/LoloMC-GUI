@@ -23,7 +23,7 @@ public final class LoloGuiForgeExample {
 
     private void registerKeys(RegisterKeyMappingsEvent event) {
         KeyMapping.Category category = KeyMapping.Category.register(
-                ResourceLocation.withNamespaceAndPath(MOD_ID, "example"));
+                ResourceLocation.fromNamespaceAndPath(MOD_ID, "example"));
         openKey = new KeyMapping("key.lolomc_gui_example.open", InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_O, category);
         event.register(openKey);

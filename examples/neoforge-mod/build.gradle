@@ -12,11 +12,14 @@ base { archivesName = "${project.archives_base_name}-${project.minecraft_version
 sourceSets.main.java.srcDir('../common-support/src/main/java')
 def eventBasedInputVersions = ['1.21.9', '1.21.10']
 def renamedIdentifierVersions = ['1.21.11']
+def legacyTickEventVersions = ['1.20.3', '1.20.4']
 def inputSourceDir = renamedIdentifierVersions.contains(project.minecraft_version.toString())
         ? 'src/input-identifier/java'
         : (eventBasedInputVersions.contains(project.minecraft_version.toString())
             ? 'src/input-events/java'
-            : 'src/input-legacy/java')
+            : (legacyTickEventVersions.contains(project.minecraft_version.toString())
+                ? 'src/input-20.3-20.4/java'
+                : 'src/input-legacy/java'))
 sourceSets.main.java.srcDir(inputSourceDir)
 
 repositories { mavenCentral() }

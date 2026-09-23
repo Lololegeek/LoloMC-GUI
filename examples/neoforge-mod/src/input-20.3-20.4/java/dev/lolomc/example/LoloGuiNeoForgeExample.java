@@ -7,10 +7,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.TickEvent.ClientTickEvent;
 import org.lwjgl.glfw.GLFW;
 
 @Mod(LoloGuiNeoForgeExample.MOD_ID)
@@ -23,24 +23,22 @@ public final class LoloGuiNeoForgeExample {
     }
 
     private void registerKeys(RegisterKeyMappingsEvent event) {
-        KeyMapping.Category category = KeyMapping.Category.register(
-                ResourceLocation.fromNamespaceAndPath(MOD_ID, "example"));
         openKey = new KeyMapping("key.lolomc_gui_example.open", InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_O, category);
+                GLFW.GLFW_KEY_O, "category.lolomc_gui_example");
         event.register(openKey);
     }
 
-    @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
     public static final class ClientEvents {
         @SubscribeEvent
-        public static void tick(ClientTickEvent.Post event) {
-            if (openKey == null) return;
+        public static void tick(ClientTickEvent event) {
+            if (event.phase != TickEvent.Phase.END || openKey == null) return;
             Minecraft client = Minecraft.getInstance();
             while (openKey.consumeClick()) client.setScreen(LoloExampleScreen.create(client));
         }
     }
 
     static ResourceLocation resource(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+        return ResourceLocation.tryParse(MOD_ID + ":" + path);
     }
 }
