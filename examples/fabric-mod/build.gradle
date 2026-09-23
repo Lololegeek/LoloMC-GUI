@@ -11,6 +11,7 @@ base {
 }
 
 sourceSets.main.java.srcDir('../common-support/src/main/java')
+sourceSets.main.java.srcDir('../../runtime-java/src/main/java')
 def eventBasedInputVersions = ['1.21.9', '1.21.10', '1.21.11']
 sourceSets.main.java.srcDir(eventBasedInputVersions.contains(project.minecraft_version.toString())
         ? 'src/input-events/java'
@@ -26,7 +27,6 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
 }
 
 processResources {

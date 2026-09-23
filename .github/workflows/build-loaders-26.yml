@@ -106,6 +106,13 @@ jobs:
         working-directory: ${{ matrix.path }}
         run: ./gradlew build --no-daemon ${{ matrix.properties }}
 
+      - name: Verify the runtime is packaged in the example mod
+        working-directory: ${{ matrix.path }}
+        run: |
+          example_jar="$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print -quit)"
+          test -n "$example_jar"
+          jar tf "$example_jar" | grep -Fxq 'dev/lolomc/gui/LoloGui.class'
+
       - name: Upload ${{ matrix.loader }} artifact
         uses: actions/upload-artifact@v4
         with:

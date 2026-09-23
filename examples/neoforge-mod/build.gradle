@@ -16,6 +16,7 @@ group = project.maven_group
 base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
 
 sourceSets.main.java.srcDir('../common-support/src/main/java')
+sourceSets.main.java.srcDir('../../runtime-java/src/main/java')
 def eventBasedInputVersions = ['1.21.9', '1.21.10']
 def renamedIdentifierVersions = ['1.21.11']
 def separateClientInputVersions = ['1.20.2']
@@ -55,7 +56,6 @@ dependencies {
         def neoForgeArtifact = project.findProperty('neoforge_artifact') ?: 'neoforge'
         implementation "net.neoforged:${neoForgeArtifact}:${project.neoforge_version}"
     }
-    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
 }
 
 tasks.withType(JavaCompile).configureEach {

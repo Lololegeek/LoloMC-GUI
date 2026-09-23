@@ -14,11 +14,11 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
 }
 
 sourceSets.main.java.srcDir('../minecraft-26-common/src/main/java')
 sourceSets.main.java.srcDir('../common-support/src/main/java')
+sourceSets.main.java.srcDir('../../runtime-java/src/main/java')
 sourceSets.main.java.srcDir(project.minecraft_version.toString() == '26.3'
         ? 'src/input-sdl/java'
         : 'src/input-glfw/java')

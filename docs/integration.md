@@ -2,7 +2,7 @@
 
 ## 1. Add the runtime
 
-Publish `runtime-java/build/lolomc-gui-0.1.0.jar` to your local Maven repository or place it in `libs/`, then use `implementation(files("libs/lolomc-gui-0.1.0.jar"))`. No loader is a transitive runtime dependency.
+Publish `runtime-java/build/lolomc-gui-0.2.1.jar` to your local Maven repository or place it in `libs/`, then use `implementation(files("libs/lolomc-gui-0.2.1.jar"))`. No loader is a transitive runtime dependency.
 
 Place `screen.xml` and `screen.css` in `src/main/resources/assets/<modid>/ui/`.
 

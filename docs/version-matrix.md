@@ -14,7 +14,7 @@ The GitHub Actions matrix builds a separate client example for every upstream re
 
 Forge does not publish Minecraft development coordinates for 1.20.5 or 1.21.2, so those two Forge artifacts cannot be built. The NeoForge 1.20.1 example uses the legacy `net.neoforged:forge` coordinate; NeoForge recommends Forge for that release. The NeoForge profiles pin the exact published loader build, including upstream beta builds where no stable build exists.
 
-Every example artifact embeds the targeted game release in its filename and declares that exact Minecraft version in mod metadata. The source matrix and CI results are the authority for what has compiled; rows are not publication claims by themselves.
+Every example artifact embeds the targeted game release in its filename, declares that exact Minecraft version in mod metadata, and includes the portable runtime classes so the example can run as a standalone client mod. CI also verifies the runtime entry-point class is present in each JAR. The source matrix and CI results are the authority for what has compiled; rows are not claims of manual in-game testing.
 
 ## Minecraft 26.1–26.3
 

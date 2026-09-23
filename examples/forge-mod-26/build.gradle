@@ -33,11 +33,11 @@ repositories {
 
 dependencies {
     implementation minecraft.dependency("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
-    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
 }
 
 sourceSets.main.java.srcDir('../minecraft-26-common/src/main/java')
 sourceSets.main.java.srcDir('../common-support/src/main/java')
+sourceSets.main.java.srcDir('../../runtime-java/src/main/java')
 sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
 
 processResources {

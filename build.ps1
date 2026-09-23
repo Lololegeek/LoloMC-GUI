@@ -22,7 +22,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Test compilation failed' }
 if ($LASTEXITCODE -ne 0) { throw 'Runtime tests failed' }
 
 if (-not $TestOnly) {
-    $jarPath = Join-Path $buildRoot 'lolomc-gui-0.1.0.jar'
+    $jarPath = Join-Path $buildRoot 'lolomc-gui-0.2.1.jar'
     & jar --create --file $jarPath -C $classesDir .
     if ($LASTEXITCODE -ne 0) { throw 'JAR packaging failed' }
     Write-Host "Built $jarPath"

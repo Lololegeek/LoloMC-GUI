@@ -31,7 +31,6 @@ repositories {
 
 dependencies {
     implementation minecraft.dependency("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
-    implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
 }
 
 sourceSets.main.java.srcDir('../forge-mod/src/main/java')
@@ -47,6 +46,7 @@ def inputSourceDir = renamedIdentifierVersions.contains(project.minecraft_versio
                 : '../forge-mod/src/input-legacy/java'))
 sourceSets.main.java.srcDir(inputSourceDir)
 sourceSets.main.java.srcDir('../common-support/src/main/java')
+sourceSets.main.java.srcDir('../../runtime-java/src/main/java')
 sourceSets.main.resources.srcDir('../forge-mod/src/main/resources')
 sourceSets.main.resources.srcDir('../fabric-mod/src/main/resources/assets')
 

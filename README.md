@@ -26,7 +26,7 @@ npm run check
 npm run dev -w studio
 ```
 
-The runtime JAR is generated at `runtime-java/build/lolomc-gui-0.1.0.jar`. The production Studio build is written to `studio/dist/`.
+The runtime JAR is generated at `runtime-java/build/lolomc-gui-0.2.1.jar`. The production Studio build is written to `studio/dist/`.
 
 ## Your first screen
 
@@ -78,7 +78,7 @@ Minecraft changes class names and rendering signatures across versions and mappi
 
 ## Status
 
-Version `0.1.0` is a functional foundation for early mod integrations and feedback. Supported properties are intentionally documented; this runtime is not trying to embed a full web browser inside Minecraft.
+Version `0.2.1` ships self-contained loader example JARs with the portable runtime included. Supported properties are intentionally documented; this runtime is not trying to embed a full web browser inside Minecraft.
 
 ## License
 
