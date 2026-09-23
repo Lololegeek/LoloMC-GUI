@@ -8,6 +8,9 @@ version = project.mod_version
 group = project.maven_group
 
 base { archivesName = "${project.archives_base_name}-${project.minecraft_version}" }
+sourceSets.main.java.srcDir(project.minecraft_version.toString() == '26.3'
+        ? 'src/input-sdl/java'
+        : 'src/input-glfw/java')
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
@@ -15,7 +18,7 @@ minecraft {
     runs {
         client {
             workingDir = project.file('run')
-            property 'forge.logging.console.level', 'debug'
+            systemProperty 'forge.logging.console.level', 'debug'
             mods { lolomc_gui_example { source sourceSets.main } }
         }
     }

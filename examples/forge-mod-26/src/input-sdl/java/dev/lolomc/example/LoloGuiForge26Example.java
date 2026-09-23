@@ -9,7 +9,6 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.lwjgl.glfw.GLFW;
 
 @Mod(value = LoloGuiForge26Example.MOD_ID, dist = Dist.CLIENT)
 public final class LoloGuiForge26Example {
@@ -24,8 +23,7 @@ public final class LoloGuiForge26Example {
     private void registerKeys(RegisterKeyMappingsEvent event) {
         KeyMapping.Category category = KeyMapping.Category.register(
                 Identifier.fromNamespaceAndPath(MOD_ID, "example"));
-        openKey = new KeyMapping("key.lolomc_gui_example.open", InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_O, category);
+        openKey = new KeyMapping("key.lolomc_gui_example.open", InputConstants.KEY_O, category);
         event.register(openKey);
     }
 

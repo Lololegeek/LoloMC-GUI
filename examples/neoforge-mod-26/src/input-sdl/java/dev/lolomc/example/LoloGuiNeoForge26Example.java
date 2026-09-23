@@ -11,7 +11,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import org.lwjgl.glfw.GLFW;
 
 @Mod(value = LoloGuiNeoForge26Example.MOD_ID, dist = Dist.CLIENT)
 public final class LoloGuiNeoForge26Example {
@@ -26,8 +25,7 @@ public final class LoloGuiNeoForge26Example {
         KeyMapping.Category category = new KeyMapping.Category(
                 Identifier.fromNamespaceAndPath(MOD_ID, "example"));
         event.registerCategory(category);
-        openKey = new KeyMapping("key.lolomc_gui_example.open", InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_O, category);
+        openKey = new KeyMapping("key.lolomc_gui_example.open", InputConstants.KEY_O, category);
         event.register(openKey);
     }
 

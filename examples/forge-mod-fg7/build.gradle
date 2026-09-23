@@ -16,7 +16,7 @@ minecraft {
     runs {
         client {
             workingDir = project.file('run')
-            property 'forge.logging.console.level', 'debug'
+            systemProperty 'forge.logging.console.level', 'debug'
             mods { lolomc_gui_example { source sourceSets.main } }
         }
     }
