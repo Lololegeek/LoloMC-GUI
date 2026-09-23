@@ -1,0 +1,26 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/Lololegeek/LoloMC-GUI/issues"
+
+[[mods]]
+modId = "lolomc_gui_example"
+version = "${version}"
+displayName = "LoloMC GUI Example (NeoForge 1.20.1)"
+displayURL = "https://github.com/Lololegeek/LoloMC-GUI"
+authors = "LoloMC GUI contributors"
+description = '''A real in-game XML/CSS screen powered by LoloMC GUI.'''
+
+[[dependencies.lolomc_gui_example]]
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.lolomc_gui_example]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[${minecraft_version}]"
+ordering = "NONE"
+side = "CLIENT"

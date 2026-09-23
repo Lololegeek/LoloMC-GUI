@@ -3,19 +3,20 @@ package dev.lolomc.example;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.TickEvent;
 import org.lwjgl.glfw.GLFW;
 
-final class LoloGuiForgeClient {
+final class LoloGuiNeoForgeClient {
     private static KeyMapping openKey;
 
-    private LoloGuiForgeClient() { }
+    private LoloGuiNeoForgeClient() { }
 
-    static void init(FMLJavaModLoadingContext context) {
-        RegisterKeyMappingsEvent.getBus(context.getModBusGroup()).addListener(LoloGuiForgeClient::registerKeys);
-        TickEvent.ClientTickEvent.Post.BUS.addListener(LoloGuiForgeClient::tick);
+    static void init(IEventBus modEventBus) {
+        modEventBus.addListener(LoloGuiNeoForgeClient::registerKeys);
+        NeoForge.EVENT_BUS.addListener(LoloGuiNeoForgeClient::tick);
     }
 
     private static void registerKeys(RegisterKeyMappingsEvent event) {
@@ -24,8 +25,8 @@ final class LoloGuiForgeClient {
         event.register(openKey);
     }
 
-    private static void tick(TickEvent.ClientTickEvent.Post event) {
-        if (openKey == null) return;
+    private static void tick(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.END || openKey == null) return;
         Minecraft client = Minecraft.getInstance();
         while (openKey.consumeClick()) client.setScreen(LoloExampleScreen.create(client));
     }

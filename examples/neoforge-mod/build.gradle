@@ -1,8 +1,14 @@
 plugins {
     id 'java-library'
-    id 'net.neoforged.gradle.userdev' version '7.1.39'
+    id 'net.neoforged.gradle.userdev' version '7.1.39' apply false
+    id 'net.neoforged.moddev.legacyforge' version '2.0.91' apply false
     id 'maven-publish'
 }
+
+def legacyNeoForge = project.minecraft_version.toString() == '1.20.1'
+apply plugin: (legacyNeoForge
+        ? 'net.neoforged.moddev.legacyforge'
+        : 'net.neoforged.gradle.userdev')
 
 version = project.mod_version
 group = project.maven_group
@@ -12,23 +18,43 @@ base { archivesName = "${project.archives_base_name}-${project.minecraft_version
 sourceSets.main.java.srcDir('../common-support/src/main/java')
 def eventBasedInputVersions = ['1.21.9', '1.21.10']
 def renamedIdentifierVersions = ['1.21.11']
+def separateClientInputVersions = ['1.20.2']
 def legacyTickEventVersions = ['1.20.3', '1.20.4']
 def inputSourceDir = renamedIdentifierVersions.contains(project.minecraft_version.toString())
         ? 'src/input-identifier/java'
         : (eventBasedInputVersions.contains(project.minecraft_version.toString())
             ? 'src/input-events/java'
-            : (legacyTickEventVersions.contains(project.minecraft_version.toString())
-                ? 'src/input-20.3-20.4/java'
-                : 'src/input-legacy/java'))
-sourceSets.main.java.srcDir(inputSourceDir)
+            : (separateClientInputVersions.contains(project.minecraft_version.toString())
+                ? 'src/input-20.2/java'
+                : (legacyTickEventVersions.contains(project.minecraft_version.toString())
+                    ? 'src/input-20.3-20.4/java'
+                    : 'src/input-legacy/java')))
+sourceSets.main.java.srcDir(legacyNeoForge ? '../forge-mod/src/input-legacy/java' : inputSourceDir)
 
 repositories { mavenCentral() }
 
 sourceSets.main.resources.srcDir('../../examples/fabric-mod/src/main/resources/assets')
+if (legacyNeoForge) {
+    sourceSets.main.resources.srcDir('src/legacy-forge/resources')
+    sourceSets.main.resources.exclude('META-INF/neoforge.mods.toml')
+    legacyForge {
+        enable {
+            neoForgeVersion = project.neoforge_version
+            runs {
+                client { client() }
+            }
+            mods {
+                lolomc_gui_example { sourceSet sourceSets.main }
+            }
+        }
+    }
+}
 
 dependencies {
-    def neoForgeArtifact = project.findProperty('neoforge_artifact') ?: 'neoforge'
-    implementation "net.neoforged:${neoForgeArtifact}:${project.neoforge_version}"
+    if (!legacyNeoForge) {
+        def neoForgeArtifact = project.findProperty('neoforge_artifact') ?: 'neoforge'
+        implementation "net.neoforged:${neoForgeArtifact}:${project.neoforge_version}"
+    }
     implementation "dev.lolomc:lolomc-gui:${project.lolomc_version}"
 }
 
@@ -38,7 +64,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    toolchain.languageVersion = JavaLanguageVersion.of(project.java_version.toInteger())
     sourceCompatibility = JavaVersion.toVersion(project.java_version)
     targetCompatibility = JavaVersion.toVersion(project.java_version)
     withSourcesJar()
@@ -57,6 +83,17 @@ processResources {
     filesMatching('META-INF/neoforge.mods.toml') {
         expand(version: project.version, minecraft_version: project.minecraft_version,
                neoforge_version_range: neoForgeVersionRange)
+    }
+    if (legacyNeoForge) {
+        def forgeVersionRange = project.neoforge_version_range.toString().startsWith('[')
+            ? project.neoforge_version_range.toString()
+            : "[${project.neoforge_version_range},)"
+        inputs.properties([version: project.version, minecraft_version: project.minecraft_version,
+                           forge_version_range: forgeVersionRange])
+        filesMatching('META-INF/mods.toml') {
+            expand(version: project.version, minecraft_version: project.minecraft_version,
+                   forge_version_range: forgeVersionRange)
+        }
     }
 }
 
