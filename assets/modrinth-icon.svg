@@ -1,25 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="LoloMC GUI logo">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="LoloMC GUI logo">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0d111a"/>
-      <stop offset="1" stop-color="#1b2435"/>
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#202b3d"/>
     </linearGradient>
-    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ffc766"/>
-      <stop offset="1" stop-color="#e88922"/>
+    <linearGradient id="tile" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#ffd078"/>
+      <stop offset="1" stop-color="#e99a2f"/>
     </linearGradient>
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="9" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#05070b" flood-opacity=".45"/>
     </filter>
   </defs>
-  <rect width="512" height="512" rx="104" fill="url(#bg)"/>
-  <rect x="58" y="70" width="344" height="344" rx="48" fill="#172238" stroke="#3f526f" stroke-width="8"/>
-  <rect x="92" y="44" width="328" height="344" rx="44" fill="#111827" stroke="#526582" stroke-width="8"/>
-  <path d="M166 126h176v54H222v166h-56z" fill="url(#amber)" stroke="#ffd98d" stroke-width="8" stroke-linejoin="round" filter="url(#glow)"/>
-  <rect x="190" y="93" width="34" height="20" rx="7" fill="#ffc766"/>
-  <rect x="246" y="93" width="34" height="20" rx="7" fill="#ffc766"/>
-  <rect x="302" y="93" width="34" height="20" rx="7" fill="#ffc766"/>
-  <path d="M382 326l29-84 20 38 38 8-67 53z" fill="#f8f0df" stroke="#171b26" stroke-width="9" stroke-linejoin="round"/>
-  <path d="M444 214v-28m-14 14h28" stroke="#b889ff" stroke-width="10" stroke-linecap="round"/>
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#bg)"/>
+  <rect x="17.5" y="17.5" width="477" height="477" rx="110.5" fill="none" stroke="#39485e" stroke-width="3"/>
+  <rect x="104" y="92" width="304" height="304" rx="62" fill="url(#tile)" filter="url(#shadow)"/>
+  <rect x="121" y="109" width="270" height="270" rx="47" fill="none" stroke="#ffe0a0" stroke-opacity=".65" stroke-width="3"/>
+  <path d="M181 154h62v141h102v62H181z" fill="#171b25"/>
+  <path d="M181 154h62v141h102v20H243V154z" fill="#2b3342" opacity=".3"/>
+  <circle cx="365" cy="365" r="8" fill="#fff1cf"/>
+  <circle cx="390" cy="365" r="8" fill="#fff1cf" opacity=".65"/>
+  <circle cx="415" cy="365" r="8" fill="#fff1cf" opacity=".35"/>
 </svg>
